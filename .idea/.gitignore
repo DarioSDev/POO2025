@@ -1,0 +1,35 @@
+# Ignore build directories
+cmake-build-*/
+
+# CMake generated files
+CMakeFiles/
+CMakeCache.txt
+cmake.check_cache
+cmake_install.cmake
+
+# IDE-specific files (e.g., CLion or other JetBrains IDEs)
+*.idea/
+*.iml
+.clion-*
+.vscode/
+
+# Build system files
+build.ninja
+rules.ninja
+*.ninja_deps
+*.ninja_log
+
+# Executable and binary files
+*.exe
+*.out
+*.o
+*.obj
+
+# Temporary and log files
+*.log
+*.tmp
+*.bak
+
+# System-specific files
+.DS_Store
+Thumbs.db
