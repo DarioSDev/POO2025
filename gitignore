@@ -1,5 +1,8 @@
-# Ignore build directories
-cmake-build-*/
+# Ignore everything in cmake-build-debug/
+cmake-build-debug/*
+
+# Allow config.txt to be tracked
+!cmake-build-debug/config.txt
 
 # CMake generated files
 CMakeFiles/
