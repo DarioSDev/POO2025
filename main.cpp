@@ -3,7 +3,7 @@
 
 int main()
 {
-    Simulador simulador(10, 20); // Mapa de 10x20
+    Simulador simulador;
     simulador.executa();
     return 0;
 }

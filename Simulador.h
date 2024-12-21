@@ -18,10 +18,11 @@ class Simulador {
     vector<string> mapa;
     Buffer screen;
     GameManager manager;
+    GameModel model;
+    GameConfigurator configurator;
 
 public:
-    Simulador(int linhas,
-        int colunas);
+    Simulador();
 
     void geraMapa();
     void mostra();

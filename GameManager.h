@@ -16,7 +16,7 @@ class GameManager {
     int coins;
     int turns;
     int combatsWon;
-    GameConfigurator gameConfig;
+    //GameConfigurator gameConfig;
     enum GameStatus
     {
         Running, Over
@@ -36,11 +36,10 @@ public:
     ~GameManager();
     void combat();
     void checkGameStatus();
-
     int getCoins() const;
-
+    int getLinhas() const;
+    int getColunas() const;
     void setCoins(int coins);
-
     void configGame(string fileName = "config.txt");
 };
 

@@ -18,6 +18,8 @@ public:
 
     Buffer(int linhas, int colunas);
 
+    Buffer();
+
     ~Buffer();
 
     void clear();

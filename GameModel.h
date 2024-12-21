@@ -46,9 +46,9 @@ public:
         instantesEntreNovosItems = inst;
     }
 
-    void setDuracaoItem(int duracaoItem)
+    void setDuracaoItem(int durItem)
     {
-        duracaoItem = duracaoItem;
+        duracaoItem = durItem;
     }
 
     void setMasItens(int max_itens)

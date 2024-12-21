@@ -7,18 +7,16 @@
 #include "GameConfigurator.h"
 #include "Mountain.h" // TODO REMOVER
 
-Simulador::Simulador(int linhas, int colunas):
-    linhas(linhas),
-    colunas(colunas),
-    screen(linhas, colunas),
-    manager(GameManager())
-{
-    //GameConfigurator a;
-    //const string filename = "config.txt";
-    //a.readConfigFile(filename);
-    //a.displayConfig();
+Simulador::Simulador()
+    : linhas(0), colunas(0), screen(linhas, colunas), model(GameModel()), configurator(model) {
+
+    const string filename = "config.txt";
+    configurator.readConfigFile(filename);
+    configurator.displayConfig();
+    linhas = model.linhas;
+    colunas = model.colunas;
+    screen = Buffer(linhas, colunas);
     geraMapa();
-    manager.configGame();
 }
 
 void Simulador::geraMapa()

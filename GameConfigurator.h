@@ -12,15 +12,15 @@
 using namespace std;
 
 class GameConfigurator {
-    GameModel gameModel;
+    GameModel& model;
 public:
-    GameConfigurator();
+    GameConfigurator(GameModel& model);
+
+    void configGame(string fileName);
 
     void readConfigFile(const string& filename);
 
     void displayConfig() const;
-
-    GameModel getGameModel();
 };
 
 

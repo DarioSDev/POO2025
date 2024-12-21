@@ -30,4 +30,6 @@ add_executable(TP main.cpp
         GameModel.h
         Desert.cpp
         Desert.h
+        GameManager2.cpp
+        GameManager2.h
 )

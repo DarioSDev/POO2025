@@ -23,6 +23,8 @@ posLinha(0)
     clear();
 }
 
+Buffer::Buffer() {}
+
 Buffer::~Buffer()
 {
     delete[] buffer;
