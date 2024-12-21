@@ -8,18 +8,18 @@
 
 using namespace std;
 
-int Buffer::getIndex(int linha, int coluna) const
+int Buffer::getIndex(int lines, int column) const
 {
-    return linha * colunas + coluna;
+    return lines * columns + column;
 }
 
-Buffer::Buffer(int linhas, int colunas):
-linhas(linhas),
-colunas(colunas),
-posColuna(0),
-posLinha(0)
+Buffer::Buffer(int lines, int columns):
+lines(lines),
+columns(columns),
+columnPos(0),
+linePos(0)
 {
-    buffer = new char[linhas * colunas];
+    buffer = new char[lines * columns];
     clear();
 }
 
@@ -33,64 +33,64 @@ Buffer::~Buffer()
 
 void Buffer::clear()
 {
-    fill_n(buffer, linhas * colunas, '.');
+    fill_n(buffer, lines * columns, '.');
 }
 
 void Buffer::render() const
 {
-    for (int i = 0; i < linhas; ++i) {
-        for (int j = 0; j < colunas; ++j) {
+    for (int i = 0; i < lines; ++i) {
+        for (int j = 0; j < columns; ++j) {
             cout << buffer[getIndex(i, j)];
         }
         cout << '\n';
     }
 }
 
-void Buffer::moveCursor(int linha, int coluna)
+void Buffer::moveCursor(int line, int column)
 {
-    if (linha >= 0 && coluna < linhas && coluna >= 0 && coluna < colunas) {
-        posLinha = linha;
-        posColuna = coluna;
+    if (line >= 0 && column < lines && column >= 0 && column < columns) {
+        linePos = line;
+        columnPos = column;
     }
 }
 
-void Buffer::insereCarater(char c)
+void Buffer::insertChar(char c)
 {
-    if (posLinha >= 0 && posLinha < linhas && posColuna >= 0 && posColuna < colunas) {
-        buffer[getIndex(posLinha, posColuna)] = c;
-        ++posColuna;
+    if (linePos >= 0 && linePos < lines && columnPos >= 0 && columnPos < columns) {
+        buffer[getIndex(linePos, columnPos)] = c;
+        ++columnPos;
     }
 }
 
-void Buffer::insereString(const char* str)
+void Buffer::insertString(const char* str)
 {
     while (*str)
     {
-        insereCarater(*str++);
+        insertChar(*str++);
     }
 }
 
-void Buffer::insereNum(int num)
+void Buffer::insertNum(int num)
 {
     string str = to_string(num); //precisa de cast
-    insereString(str.c_str());
+    insertString(str.c_str());
 }
 
 Buffer & Buffer::operator<<(char c)
 {
-    insereCarater(c);
+    insertChar(c);
     return *this;
 }
 
 Buffer& Buffer::operator<<(const char* str)
 {
-    insereString(str);
+    insertString(str);
     return *this;
 }
 
 Buffer& Buffer::operator<<(int num)
 {
-    insereNum(num);
+    insertNum(num);
     return *this;
 }
 

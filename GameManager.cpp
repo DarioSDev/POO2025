@@ -44,16 +44,6 @@ int GameManager::isValidCoins(int coins) const
     return coins > 0 && coins < 99999999 ? coins : 0;
 }
 
-int GameManager::getLinhas() const
-{
-    return coins;
-}
-
-int GameManager::getColunas() const
-{
-    return coins;
-}
-
 void GameManager::configGame(string fileName)
 {
     cout << "Fase 1 Iniciada!" << endl;

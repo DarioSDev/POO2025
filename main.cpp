@@ -3,7 +3,7 @@
 
 int main()
 {
-    Simulator simulador;
-    simulador.execute();
+    Simulator simulator;
+    simulator.execute();
     return 0;
 }

@@ -37,8 +37,6 @@ public:
     void combat();
     void checkGameStatus();
     int getCoins() const;
-    int getLinhas() const;
-    int getColunas() const;
     void setCoins(int coins);
     void configGame(string fileName = "config.txt");
 };

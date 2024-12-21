@@ -7,16 +7,16 @@
 
 class Buffer {
     char * buffer;
-    int linhas;
-    int colunas;
-    int posLinha;
-    int posColuna;
+    int lines;
+    int columns;
+    int linePos;
+    int columnPos;
 
-    int getIndex(int linha, int coluna) const;
+    int getIndex(int lines, int column) const;
 
 public:
 
-    Buffer(int linhas, int colunas);
+    Buffer(int lines, int columns);
 
     Buffer();
 
@@ -26,16 +26,16 @@ public:
 
     void render() const;
 
-    void moveCursor(int linha, int coluna);
+    void moveCursor(int line, int column);
 
     // TODO: MAKE OVERLOAD LATER
-    void insereCarater(char c);
+    void insertChar(char c);
 
     // TODO: MAKE OVERLOAD LATER
-    void insereString(const char *str);
+    void insertString(const char *str);
 
     // TODO: MAKE OVERLOAD LATER
-    void insereNum(int num);
+    void insertNum(int num);
 
     // TODO: MAKE OVERLOAD LATER
     Buffer& operator<<(char c);
