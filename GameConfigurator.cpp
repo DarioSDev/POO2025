@@ -36,14 +36,14 @@ void GameConfigurator::readConfigFile(const string& filename) {
     if (getline(file, line)) {
         stringstream ss(line);
         string temp;
-        ss >> temp >> model.linhas; // Ler "linhas" e o valor correspondente
+        ss >> temp >> model.lines; // Ler "linhas" e o valor correspondente
     }
 
     // Ler o número de colunas
     if (getline(file, line)) {
         stringstream ss(line);
         string temp;
-        ss >> temp >> model.colunas; // Ler "colunas" e o valor correspondente
+        ss >> temp >> model.columns; // Ler "colunas" e o valor correspondente
     }
 
     // Ler o grid do mapa
@@ -58,17 +58,17 @@ void GameConfigurator::readConfigFile(const string& filename) {
     //}
 
     //Ler o grid do mapa
-    for (int y = 0; y < model.linhas; ++y) {
+    for (int y = 0; y < model.lines; ++y) {
         if (getline(file, line)) {
             for (int x = 0; x < line.size(); ++x) {
-                char conteudo = line[x];
+                char content = line[x];
 
-                if(conteudo == '+')
-                    model.mapa.push_back(new Mountain(x, y, conteudo));
+                if(content == '+')
+                    model.map.push_back(new Mountain(x, y, content));
                 // TODO IF conteudo == '.' -> Deserto() e para os outros characters
                 // TODO Mudar este push back para uma funçao interna, tipo > void addMapContent( MapContentItem * )
                 else
-                    model.mapa.push_back(new MapContentItem(x, y, conteudo));
+                    model.map.push_back(new MapContentItem(x, y, content));
             }
         }
     }
@@ -80,17 +80,17 @@ void GameConfigurator::readConfigFile(const string& filename) {
         int value;
         ss >> key >> value;
 
-        if (key == "moedas") model.moedas = value;
-        else if (key == "instantes_entre_novos_itens") model.instantesEntreNovosItems = value;
-        else if (key == "duração_item") model.duracaoItem = value;
-        else if (key == "max_itens") model.maxItens = value;
-        else if (key == "preço_venda_mercadoria") model.precoVendaMercadoria = value;
-        else if (key == "preço_compra_mercadoria") model.precoCompraMercadoria = value;
-        else if (key == "preço_caravana") model.precoCaravana = value;
+        if (key == "moedas") model.coins = value;
+        else if (key == "instantes_entre_novos_itens") model.turnsBetweenNewItems = value;
+        else if (key == "duração_item") model.itemDuration = value;
+        else if (key == "max_itens") model.maxItems = value;
+        else if (key == "preço_venda_mercadoria") model.merchSellPrice = value;
+        else if (key == "preço_compra_mercadoria") model.merchBuyPrice = value;
+        else if (key == "preço_caravana") model.caravanPrice = value;
     }
 
     file.close();
-    cout << "After reading: linhas = " << model.linhas << ", colunas = " << model.colunas << endl;
+    cout << "After reading: linhas = " << model.lines << ", colunas = " << model.columns << endl;
 
     printf("Configurator model address: %p\n", (void*)&model);
 }
@@ -98,20 +98,20 @@ void GameConfigurator::readConfigFile(const string& filename) {
 // Método para mostrar as configurações carregadas
 void GameConfigurator::displayConfig() const {
     cout << "\n\n";
-    cout << "Linhas: " << model.linhas << ", Colunas: " << model.colunas << "\n";
-    for (const auto& row : model.mapa) {
+    cout << "Linhas: " << model.lines << ", Colunas: " << model.columns << "\n";
+    for (const auto& row : model.map) {
         cout << row->getIdentifier();
         if (row->getX() == 19)
             cout << "\n";
     }
 
     cout << "\n" << endl;
-    cout << "Moedas: " << model.moedas << "\n";
-    cout << "Instantes entre novos itens: " << model.instantesEntreNovosItems << "\n";
-    cout << "Duracao do item: " << model.duracaoItem << "\n";
-    cout << "Max itens: " << model.maxItens << "\n";
-    cout << "Preco de venda da mercadoria: " << model.precoVendaMercadoria << "\n";
-    cout << "Preco de compra da mercadoria: " << model.precoCompraMercadoria << "\n";
-    cout << "Preco da caravana: " << model.precoCaravana << "\n";
+    cout << "Moedas: " << model.coins << "\n";
+    cout << "Instantes entre novos itens: " << model.turnsBetweenNewItems << "\n";
+    cout << "Duracao do item: " << model.itemDuration << "\n";
+    cout << "Max itens: " << model.maxItems << "\n";
+    cout << "Preco de venda da mercadoria: " << model.merchSellPrice << "\n";
+    cout << "Preco de compra da mercadoria: " << model.merchBuyPrice << "\n";
+    cout << "Preco da caravana: " << model.caravanPrice << "\n";
     cout << "\n\n";
 }

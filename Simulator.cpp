@@ -2,30 +2,30 @@
 // Created by Correia, Jose Bastos on 03/12/2024.
 //
 
-#include "Simulador.h"
+#include "Simulator.h"
 #include "CMD.h"
 #include "GameConfigurator.h"
 #include "Mountain.h" // TODO REMOVER
 
-Simulador::Simulador()
-    : linhas(0), colunas(0), screen(linhas, colunas), model(GameModel()), configurator(model) {
+Simulator::Simulator()
+    : lines(0), columns(0), screen(lines, columns), model(GameModel()), configurator(model) {
 
     const string filename = "config.txt";
     configurator.readConfigFile(filename);
     configurator.displayConfig();
-    linhas = model.linhas;
-    colunas = model.colunas;
-    screen = Buffer(linhas, colunas);
-    geraMapa();
+    lines = model.lines;
+    columns = model.columns;
+    screen = Buffer(lines, columns);
+    makeMap();
 }
 
-void Simulador::geraMapa()
+void Simulator::makeMap()
 {
-    mapa.clear();
-    for(int i = 0; i < linhas; i++)
+    map.clear();
+    for(int i = 0; i < lines; i++)
     {
-        string linha(linhas, '.');
-        mapa.push_back(linha);
+        string linha(lines, '.');
+        map.push_back(linha);
     }
     // TODO POPULAR COM ITEMS DO GAME MANAGER
 
@@ -37,8 +37,8 @@ void Simulador::geraMapa()
 
 
     // eg de preenchimento
-    mapa[2][3] = '+'; // Montanha
-    mapa[1][4] = 'C'; // Cidade TODO mudar para nums
+    map[2][3] = '+'; // Montanha
+    map[1][4] = 'C'; // Cidade TODO mudar para nums
     //for (auto it : d.getDesertPositions()) {
     //    std::cout << "Primeiro valor: " << it.first << ", Segundo valor: " << it.second << std::endl;
     //    mapa[it.first][it.second] = '+';
@@ -46,23 +46,23 @@ void Simulador::geraMapa()
 
 }
 
-void Simulador::mostra()
+void Simulator::show()
 {
     screen.clear();
-    for(int i = 0; i < linhas; i++)
+    for(int i = 0; i < lines; i++)
     {
         screen.moveCursor(i, 0);
-        screen << mapa[i].c_str();
+        screen << map[i].c_str();
     }
     screen.render();
 }
 
 // FIXME NOT IN USE
-void Simulador::processaComando(string & cmd)
+void Simulator::executeCommand(string & cmd)
 {
     if (cmd == "show")
     {
-        mostra();
+        show();
     }
     else if (cmd.rfind("move", 0) == 0) {
         // Lógica para mover a caravana
@@ -76,10 +76,10 @@ void Simulador::processaComando(string & cmd)
 }
 
 
-void Simulador::processaComando(CMD command) {
+void Simulator::executeCommand(CMD command) {
     switch (command) {
     case Play:
-        mostra();
+        show();
         break;
     case Move:
         // TODO: Lógica para mover caravana
@@ -109,7 +109,7 @@ void Simulador::executa()
 }
 */
 
-void Simulador::executa() {
+void Simulator::execute() {
     string input;
 
     // TODO set das configs
@@ -120,6 +120,6 @@ void Simulador::executa() {
         getline(cin, input);
 
         CMD command = stringToCMD(input);
-        processaComando(command);
+        executeCommand(command);
     }
 }

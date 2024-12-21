@@ -12,25 +12,23 @@
 
 using namespace std;
 
-class Simulador {
-    int linhas;
-    int colunas;
-    vector<string> mapa;
+class Simulator {
+    int lines;
+    int columns;
+    vector<string> map;
     Buffer screen;
     GameManager manager;
     GameModel model;
     GameConfigurator configurator;
 
 public:
-    Simulador();
+    Simulator();
 
-    void geraMapa();
-    void mostra();
-    void processaComando(string & cmd);
-    void processaComando(CMD command);
-    void executa();
+    void makeMap();
+    void show();
+    void executeCommand(string & cmd);
+    void executeCommand(CMD command);
+    void execute();
 };
-
-
 
 #endif //SIMULADOR_H

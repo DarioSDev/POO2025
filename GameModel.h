@@ -10,78 +10,74 @@ using namespace std;
 
 class GameModel {
 public:
-    int linhas;
-    int colunas;
-
-    vector<MapContentItem *> mapa;
-
-    int moedas;
-    int instantesEntreNovosItems;
-    int duracaoItem;
-    int maxItens;
-    int precoVendaMercadoria;
-    int precoCompraMercadoria;
-    int precoCaravana;
-    int instantesEntreNovosBarbaros;
-    int duracaoBarbaros;
+    vector<MapContentItem *> map;
+    int lines;
+    int columns;
+    int coins;
+    int turnsBetweenNewItems;
+    int itemDuration;
+    int maxItems;
+    int merchSellPrice;
+    int merchBuyPrice;
+    int caravanPrice;
+    int turnsBetweenNewBarbarians;
+    int barbariansDuration;
     GameModel();
 
-    void setLinhas(int linhas)
+    void setLines(int lines)
     {
-        this->linhas = linhas;
+        this->lines = lines;
     }
 
-    void setColunas(int colunas)
+    void setColumns(int columns)
     {
-        this->colunas = colunas;
+        this->columns = columns;
     }
 
-    void setMoedas(int moedas)
+    void setCoins(int coins)
     {
-        this->moedas = moedas;
+        this->coins = coins;
     }
 
-    void setInstantesEntreNovoItems(int inst)
+    void setTurnsBetweenNewItems(int turns_items)
     {
-        instantesEntreNovosItems = inst;
+        turnsBetweenNewItems = turns_items;
     }
 
-    void setDuracaoItem(int durItem)
+    void setItemDuration(int duration)
     {
-        duracaoItem = durItem;
+        itemDuration = duration;
     }
 
-    void setMasItens(int max_itens)
+    void setMaxItens(int max_items)
     {
-        maxItens = max_itens;
+        maxItems = max_items;
     }
 
-    void setPrecoVendaMercadoria(int preco_benda_mercadoria)
+    void setMerchSellPrice(int merch_sell_price)
     {
-        precoVendaMercadoria = preco_benda_mercadoria;
+        merchSellPrice = merch_sell_price;
     }
 
-    void setPrecoCompraMercadoria(int preco_compra_mercadoria)
+    void setMerchBuyPrice(int merch_buy_price)
     {
-        precoCompraMercadoria = preco_compra_mercadoria;
+        merchBuyPrice = merch_buy_price;
     }
 
-    void setPrecoCaravana(int preco_caravana)
+    void setCaravanPrice(int caravan_price)
     {
-        precoCaravana = preco_caravana;
+        caravanPrice = caravan_price;
     }
 
-    void setInstanteEntreNovosBarbaros(int instantes_entre_novos_barbaros)
+    void setTurnsBetweenNewBarbarians(int turns_barbarians)
     {
-        instantesEntreNovosBarbaros = instantes_entre_novos_barbaros;
+        turnsBetweenNewBarbarians = turns_barbarians;
     }
 
-    void setDuracaoBarbaros(int duracao_barbaros)
+    void setBarbariansDuration(int barbarians_duration)
     {
-        duracaoBarbaros = duracao_barbaros;
+        barbariansDuration = barbarians_duration;
     }
 };
-
-
 
 #endif //GAMEMODEL_H

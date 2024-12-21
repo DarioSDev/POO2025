@@ -1,9 +1,9 @@
 #include <iostream>
-#include "Simulador.h"
+#include "Simulator.h"
 
 int main()
 {
-    Simulador simulador;
-    simulador.executa();
+    Simulator simulador;
+    simulador.execute();
     return 0;
 }
