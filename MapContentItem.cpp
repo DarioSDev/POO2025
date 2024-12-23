@@ -15,12 +15,17 @@ void MapContentItem::move(MoveDirection direction) {
     }
 }
 
-char MapContentItem::getIdentifier() const
+char MapContentItem::getIdentifier()
 {
     return identifier;
 }
 
 int MapContentItem::getX() const
+{
+    return x;
+}
+
+int MapContentItem::getY() const
 {
     return x;
 }

@@ -9,7 +9,11 @@ BarbarianCaravan::BarbarianCaravan( int x,
                                     char identifier,
                                     int crew,
                                     int attackPower)
-                                    : Caravan(x, y, identifier, crew), attackPower(attackPower) {}
+                                    : Caravan(x,
+                                        y,
+                                        identifier,
+                                        crew > 40 ? 40 : crew),
+                                        attackPower(attackPower) {}
 
 // TODO override displayInfo to show barbarian caravan details
 void BarbarianCaravan::displayInfo() {

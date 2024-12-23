@@ -25,8 +25,9 @@ public:
     // TODO FIX MAPA EMISFERICO
     void move(MoveDirection direction);
 
-    char getIdentifier() const;
+    char getIdentifier();
     int getX() const;
+    int getY() const;
 };
 
 #endif //MAPCONTENTITEM_H

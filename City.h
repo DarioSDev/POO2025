@@ -5,31 +5,34 @@
 #ifndef CITY_H
 #define CITY_H
 
-
-
 #include <vector>
 #include <string>
 #include "Caravan.h" // Assumes the Caravan class is in a separate file
 
 using namespace std;
 
-class City {
-private:
-    char name; // Unique name (letter)
-    vector<Caravan*> caravans; // List of caravans in the city
+class City: public MapContentItem {
+    vector<Caravan *> caravans; // List of caravans in the city
 
 public:
     // Constructor
-    explicit City(char name);
+    // identifier of city is lowercase letter
+    City(int x, int y, char identifier);
 
     // Allow a caravan to enter the city
-    void enterCaravan(Caravan* caravan);
+    void addCaravan(Caravan* caravan);
+
+    // Pop Caravan from City
+    void removeCaravan(Caravan* caravan);
 
     // Inspect caravans currently in the city
-    void inspect() const;
+    void inspect();
 
-    // Get the city's name
-    char getName() const;
+    // Get the city's name (identifier)
+    char getIdentifier() const;
+
+    // Append Caravan to City
+//    void addCaravan(Caravan* caravan);
 };
 
 #endif //CITY_H

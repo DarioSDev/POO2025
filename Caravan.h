@@ -15,15 +15,16 @@ using namespace std;
 class Caravan : public MapContentItem {
 protected:
     int crew;    // Number of crew members
+    const int maxTons;
 
 public:
     // Constructor
-    Caravan(int x, int y, char identifier, int crew);
+    Caravan(int x, int y, char identifier, int crew, int maxTons = 5);
 
     virtual void move();
 
     // Get the caravan's name
-    char getName() const;
+    char getName();
 
     // Virtual method to display information (polymorphic behavior)
     virtual void displayInfo();
@@ -34,7 +35,7 @@ public:
     // Remove crew members
     void removeCrew(int count);
 
-    virtual Caravan* duplicate() const;
+    virtual Caravan * duplicate() const;
 };
 
 #endif //CARAVAN_H

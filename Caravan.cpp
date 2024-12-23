@@ -7,13 +7,17 @@
 Caravan::Caravan(   int x,
                     int y,
                     char identifier,
-                    int crew )
-                    : MapContentItem(x, y, identifier),
-                    crew(crew) {}
+                    int crew ,
+                    int maxTons)
+                    : MapContentItem(   x,
+                                        y,
+                                        identifier),
+                                        crew(crew),
+                                        maxTons(maxTons) {}
 
 // FIXME GETNADA AND NAME
 // Get the caravan's name
-char Caravan::getName() const {
+char Caravan::getName() {
     return getIdentifier();
 }
 

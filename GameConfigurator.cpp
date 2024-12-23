@@ -6,8 +6,13 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <cctype>
 
+#include "BarbarianCaravan.h"
+#include "City.h"
+#include "Desert.h"
 #include "MapContentItem.h"
+#include "MerchantCaravan.h"
 #include "Mountain.h"
 
 using namespace std;
@@ -63,12 +68,18 @@ void GameConfigurator::readConfigFile(const string& filename) {
             for (int x = 0; x < line.size(); ++x) {
                 char content = line[x];
 
-                if(content == '+')
+                if (content == '.')
+                    model.map.push_back(new Desert(x, y, content));
+                else if(content == '+')
                     model.map.push_back(new Mountain(x, y, content));
-                // TODO IF conteudo == '.' -> Deserto() e para os outros characters
-                // TODO Mudar este push back para uma funçao interna, tipo > void addMapContent( MapContentItem * )
-                else
-                    model.map.push_back(new MapContentItem(x, y, content));
+                else if(islower(content))
+                    model.map.push_back(new City(x, y, content));
+                else if (isnumber(content))
+                    model.map.push_back(new MerchantCaravan(x, y, content, 10));
+                else if (content == '!')
+                    model.map.push_back(new BarbarianCaravan(x, y, content, 10, 10));
+
+                // TODO FIX crew and AP init above
             }
         }
     }

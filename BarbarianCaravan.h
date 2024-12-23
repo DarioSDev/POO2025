@@ -16,7 +16,7 @@ public:
     // TODO Override displayInfo to show specific details
     void displayInfo() override;
 
-    BarbarianCaravan* duplicate() const;
+    BarbarianCaravan* duplicate() const override;
 };
 
 
