@@ -4,6 +4,8 @@
 
 #ifndef SIMULADOR_H
 #define SIMULADOR_H
+
+#include <sstream>
 #include <vector>
 #include <iostream>
 #include "Buffer.h"
@@ -26,9 +28,10 @@ public:
 
     void makeMap();
     void show();
-    void executeCommand(string & cmd);
-    void executeCommand(CMD command);
+    void executCommand(string cmd);
+    void executCommand(CMD command);
     void execute();
+    void setupManager();
 };
 
 #endif //SIMULADOR_H

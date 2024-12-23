@@ -21,7 +21,7 @@ public:
     // TODO OVERRIDE
     void displayInfo() override;
 
-    MerchantCaravan* duplicate() const;
+    MerchantCaravan* duplicate() const override;
 };
 
 

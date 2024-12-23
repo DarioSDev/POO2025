@@ -2,21 +2,24 @@
 // Created by Correia, Jose Bastos on 03/12/2024.
 //
 
+
 #include "Simulator.h"
 #include "CMD.h"
 #include "GameConfigurator.h"
 #include "Mountain.h" // TODO REMOVER
 
 Simulator::Simulator()
-    : lines(0), columns(0), screen(lines, columns), model(GameModel()), configurator(model) {
+    : lines(0), columns(0), screen(lines, columns), manager(GameManager()), model(GameModel()), configurator(model) {
 
     const string filename = "config.txt";
     configurator.readConfigFile(filename);
     configurator.displayConfig();
     lines = model.lines;
     columns = model.columns;
+    // setup GameManager;
+    setupManager();
     screen = Buffer(lines, columns);
-    makeMap();
+    //makeMap();
 }
 
 void Simulator::makeMap()
@@ -58,7 +61,7 @@ void Simulator::show()
 }
 
 // FIXME NOT IN USE
-void Simulator::executeCommand(string & cmd)
+void Simulator::executCommand(string  cmd)
 {
     if (cmd == "show")
     {
@@ -76,7 +79,7 @@ void Simulator::executeCommand(string & cmd)
 }
 
 
-void Simulator::executeCommand(CMD command) {
+void Simulator::executCommand(CMD command) {
     switch (command) {
     case Play:
         show();
@@ -95,20 +98,6 @@ void Simulator::executeCommand(CMD command) {
     }
 }
 
-
-
-/*
-void Simulador::executa()
-{
-    string cmd;
-    while (true) {
-        cout << "Enter command: ";
-        getline(cin, cmd);
-        processaComando(cmd);
-    }
-}
-*/
-
 void Simulator::execute() {
     string input;
 
@@ -119,7 +108,38 @@ void Simulator::execute() {
 
         getline(cin, input);
 
-        CMD command = stringToCMD(input);
-        executeCommand(command);
+        istringstream ss(input);
+        string command;
+        ss >> command;
+
+        if (command == "comprac") {
+            int city;
+            char type;
+            ss >> city >> type;
+            manager.buyCaravan(city, type);
+
+        }
+
+
+
+
+        //cout << "CMD " << cmd << " PARAMS " << params << endl;
+
+        //executCommand("");
+
+
+
+
+
+
+        //CMD command = stringToCMD(input);
+        //executeCommand(command);
     }
+}
+
+void Simulator::setupManager()
+{
+    manager.setCoins(model.coins);
+    manager.setNewItemsCouldown(model.turnsBetweenNewItems);
+    manager.setItemDuration(model.itemDuration);
 }

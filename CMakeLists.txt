@@ -30,4 +30,6 @@ add_executable(TP main.cpp
         GameModel.h
         Desert.cpp
         Desert.h
+        SecretCaravan.cpp
+        SecretCaravan.h
 )

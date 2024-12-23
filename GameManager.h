@@ -9,6 +9,7 @@
 #include "Caravan.h"
 #include "City.h"
 #include "GameConfigurator.h"
+#include "MerchantCaravan.h"
 
 using namespace std;
 
@@ -16,6 +17,8 @@ class GameManager {
     int coins;
     int turns;
     int combatsWon;
+    int newItemsCouldown;
+    int itemDuration;
     //GameConfigurator gameConfig;
     enum GameStatus
     {
@@ -23,13 +26,8 @@ class GameManager {
     };
 
     // TODO: vector the mapItemsClass
-    // vector<MapContentItem * > mapItem
+    vector<Caravan *> caravans;
 
-
-    vector<Caravan *> caravanas;
-    vector<string> barbaros;
-    vector<City *> cidades;
-    vector<string> montanhas;
     int isValidCoins(int coins) const;
 public:
     GameManager(int coins = 0);
@@ -38,7 +36,10 @@ public:
     void checkGameStatus();
     int getCoins() const;
     void setCoins(int coins);
+    void setNewItemsCouldown(int cd);
+    void setItemDuration(int cd);
     void configGame(string fileName = "config.txt");
+    void buyCaravan(int city, char type);
 };
 
 
