@@ -16,6 +16,7 @@ Simulator::Simulator()
     configurator.displayConfig();
     lines = model.lines;
     columns = model.columns;
+    turn = 0;
     // setup GameManager;
     setupManager();
     screen = Buffer(lines, columns);
@@ -61,16 +62,53 @@ void Simulator::show()
 }
 
 // FIXME NOT IN USE
-void Simulator::executCommand(string  cmd)
+void Simulator::executeCommand(string cmd)
 {
     if (cmd == "show")
     {
         show();
     }
     else if (cmd.rfind("move", 0) == 0) {
-        // Lógica para mover a caravana
+        istringstream iss(cmd);
+        string moveCmd, direction;
+        int caravanNumber;
+
+        // Parse the command
+        if (!(iss >> moveCmd >> caravanNumber >> direction)) {
+            cout << "Invalid move command format. Use: move <N> <X>\n";
+            return;
+        }
+
+        // Find the caravan by number
+        Caravan* caravan = findCaravan(caravanNumber);
+        if (!caravan) {
+            cout << "Caravan " << caravanNumber << " not found!\n";
+            return;
+        }
+
+        // Move the caravan based on the direction
+        int dx = 0, dy = 0;
+        if (direction == "D")      { dx = 1;  }
+        else if (direction == "E") { dx = -1; }
+        else if (direction == "C") { dy = -1; }
+        else if (direction == "B") { dy = 1;  }
+        else if (direction == "CE"){ dx = -1; dy = -1; }
+        else if (direction == "CD"){ dx = 1;  dy = -1; }
+        else if (direction == "BE"){ dx = -1; dy = 1;  }
+        else if (direction == "BD"){ dx = 1;  dy = 1;  }
+        else {
+            cout << "Invalid direction: " << direction << ". Use: D, E, C, B, CE, CD, BE, BD\n";
+            return;
+        }
+
+        // Try to move the caravan
+        if (moveCaravan(caravan, dx, dy)) {
+            cout << "Caravan " << caravanNumber << " moved to " << direction << ".\n";
+        } else {
+            cout << "Caravan " << caravanNumber << " could not move to " << direction << ". Maybe the destination is not valid?\n";
+        }
     }
-    else if (cmd == "quit") {
+    else if (cmd == "sair") {
         cout << "Exiting simulation.\n";
         exit(0);
     } else {
@@ -79,7 +117,7 @@ void Simulator::executCommand(string  cmd)
 }
 
 
-void Simulator::executCommand(CMD command) {
+void Simulator::executeCommand(CMD command) {
     switch (command) {
     case Play:
         show();
@@ -117,7 +155,6 @@ void Simulator::execute() {
             char type;
             ss >> city >> type;
             manager.buyCaravan(city, type);
-
         }
 
 

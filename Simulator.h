@@ -17,6 +17,7 @@ using namespace std;
 class Simulator {
     int lines;
     int columns;
+    int turn;
     vector<string> map;
     Buffer screen;
     GameManager manager;
@@ -28,8 +29,13 @@ public:
 
     void makeMap();
     void show();
-    void executCommand(string cmd);
-    void executCommand(CMD command);
+
+    Caravan findCaravan(int caravan_number);
+
+    bool moveCaravan(Caravan caravan, int dx, int dy);
+
+    void executeCommand(string cmd);
+    void executeCommand(CMD command);
     void execute();
     void setupManager();
 };
