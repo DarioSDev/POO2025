@@ -19,6 +19,7 @@ protected:
 
 public:
     // Constructor
+    Caravan();
     Caravan(int x, int y, char identifier, int crew, int maxTons = 5);
 
     virtual void move();

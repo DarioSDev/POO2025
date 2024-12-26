@@ -4,9 +4,11 @@
 
 #ifndef DESERT_H
 #define DESERT_H
+#include "Caravan.h"
 #include "MapContentItem.h"
 
 class Desert : public MapContentItem {
+    Caravan caravan;
 public:
     Desert( int x,
             int y,

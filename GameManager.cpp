@@ -88,6 +88,29 @@ void GameManager::buyCaravan(int city, char type)
 
 }
 
+Caravan * GameManager::findCaravan(int id)
+{
+    for (Caravan * c: caravans)
+    {
+        if (c->getIdentifier() == id)
+        {
+            return c;
+        }
+    }
+    return nullptr;
+}
+
+bool GameManager::moveCaravan(int id, int dx, int dy)
+{
+    Caravan* aux;
+    if ((aux = findCaravan(id)))
+    {
+        // TODO MOVE LOGIC -> move();
+        aux->move();
+        return true;
+    }
+    return false;
+}
 
 
 

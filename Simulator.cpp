@@ -80,7 +80,7 @@ void Simulator::executeCommand(string cmd)
         }
 
         // Find the caravan by number
-        Caravan* caravan = findCaravan(caravanNumber);
+        Caravan* caravan = manager.findCaravan(caravanNumber);
         if (!caravan) {
             cout << "Caravan " << caravanNumber << " not found!\n";
             return;
@@ -102,7 +102,7 @@ void Simulator::executeCommand(string cmd)
         }
 
         // Try to move the caravan
-        if (moveCaravan(caravan, dx, dy)) {
+        if (manager.moveCaravan(caravan->getIdentifier(), dx, dy)) {
             cout << "Caravan " << caravanNumber << " moved to " << direction << ".\n";
         } else {
             cout << "Caravan " << caravanNumber << " could not move to " << direction << ". Maybe the destination is not valid?\n";
