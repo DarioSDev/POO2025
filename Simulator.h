@@ -35,7 +35,6 @@ public:
     bool moveCaravan(Caravan caravan, int dx, int dy);
 
     void executeCommand(string cmd);
-    void executeCommand(CMD command);
     void execute();
     void setupManager();
 };

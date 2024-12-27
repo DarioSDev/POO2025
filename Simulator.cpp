@@ -10,7 +10,6 @@
 
 Simulator::Simulator()
     : lines(0), columns(0), screen(lines, columns), manager(GameManager()), model(GameModel()), configurator(model) {
-
     const string filename = "config.txt";
     configurator.readConfigFile(filename);
     configurator.displayConfig();
@@ -23,11 +22,9 @@ Simulator::Simulator()
     //makeMap();
 }
 
-void Simulator::makeMap()
-{
+void Simulator::makeMap() {
     map.clear();
-    for(int i = 0; i < lines; i++)
-    {
+    for (int i = 0; i < lines; i++) {
         string linha(lines, '.');
         map.push_back(linha);
     }
@@ -35,9 +32,7 @@ void Simulator::makeMap()
 
     //Mountain d = Mountain(10, 20);
 
-   // auto it = d.getDesertPositions();
-
-
+    // auto it = d.getDesertPositions();
 
 
     // eg de preenchimento
@@ -47,135 +42,131 @@ void Simulator::makeMap()
     //    std::cout << "Primeiro valor: " << it.first << ", Segundo valor: " << it.second << std::endl;
     //    mapa[it.first][it.second] = '+';
     //}
-
 }
 
-void Simulator::show()
-{
+void Simulator::show() {
     screen.clear();
-    for(int i = 0; i < lines; i++)
-    {
+    for (int i = 0; i < lines; i++) {
         screen.moveCursor(i, 0);
         screen << map[i].c_str();
     }
     screen.render();
 }
 
-// FIXME NOT IN USE
-void Simulator::executeCommand(string cmd)
-{
-    if (cmd == "show")
-    {
-        show();
-    }
-    else if (cmd.rfind("move", 0) == 0) {
-        istringstream iss(cmd);
-        string moveCmd, direction;
-        int caravanNumber;
-
-        // Parse the command
-        if (!(iss >> moveCmd >> caravanNumber >> direction)) {
-            cout << "Invalid move command format. Use: move <N> <X>\n";
-            return;
-        }
-
-        // Find the caravan by number
-        Caravan* caravan = manager.findCaravan(caravanNumber);
-        if (!caravan) {
-            cout << "Caravan " << caravanNumber << " not found!\n";
-            return;
-        }
-
-        // Move the caravan based on the direction
-        int dx = 0, dy = 0;
-        if (direction == "D")      { dx = 1;  }
-        else if (direction == "E") { dx = -1; }
-        else if (direction == "C") { dy = -1; }
-        else if (direction == "B") { dy = 1;  }
-        else if (direction == "CE"){ dx = -1; dy = -1; }
-        else if (direction == "CD"){ dx = 1;  dy = -1; }
-        else if (direction == "BE"){ dx = -1; dy = 1;  }
-        else if (direction == "BD"){ dx = 1;  dy = 1;  }
-        else {
-            cout << "Invalid direction: " << direction << ". Use: D, E, C, B, CE, CD, BE, BD\n";
-            return;
-        }
-
-        // Try to move the caravan
-        if (manager.moveCaravan(caravan->getIdentifier(), dx, dy)) {
-            cout << "Caravan " << caravanNumber << " moved to " << direction << ".\n";
-        } else {
-            cout << "Caravan " << caravanNumber << " could not move to " << direction << ". Maybe the destination is not valid?\n";
-        }
-    }
-    else if (cmd == "sair") {
-        cout << "Exiting simulation.\n";
-        exit(0);
-    } else {
-        cout << "Unknown command: " << cmd << '\n';
-    }
-}
-
-
-void Simulator::executeCommand(CMD command) {
-    switch (command) {
-    case Play:
-        show();
-        break;
-    case Move:
-        // TODO: Lógica para mover caravana
-            cout << "Executing move command.\n";
-        break;
-    case Quit:
-        cout << "Exiting SIM.\n";
-        exit(0);
-        break;
-    default:
-        cout << "Unknown CMD.\n";
-        break;
-    }
-}
-
 void Simulator::execute() {
     string input;
 
-    // TODO set das configs
-
     while (true) {
         cout << "Enter command: ";
-
         getline(cin, input);
-
         istringstream ss(input);
         string command;
         ss >> command;
 
-        if (command == "comprac") {
-            int city;
+        if (command == "show") {
+            show();
+        } else if (command == "prox") {
+            int num = 0;
+            if (ss >> num) {
+                if (ss.peek() != EOF) {
+                    cout << "Invalid command format. Use: prox <positive integer>\n";
+                    continue;
+                }
+                if (num <= 0) {
+                    cout << "Invalid number of turns\n";
+                    continue;
+                }
+                turn += num;
+            } else if (ss.eof()) {
+                turn++;
+            } else {
+                cout << "Invalid command format. Use: prox <positive number>\n";
+            }
+        } else if (command == "move") {
+            int caravanNumber;
+            string direction;
+
+            if (!(ss >> caravanNumber)) {
+                cout << "Invalid move command format. Use: move <caravan no.> <direction>\n";
+                continue;
+            }
+
+            if (ss.peek() != ' ' && ss.peek() != EOF) {
+                cout << "Invalid move command format. Use: move <caravan no.> <direction>\n";
+                continue;
+            }
+
+            ss >> direction;
+
+            if (direction.empty()) {
+                cout << "Direction missing. Use: move <caravan no.> <direction>\n";
+                continue;
+            }
+
+            if (direction != "D" && direction != "E" && direction != "C" && direction != "B" &&
+                direction != "CE" && direction != "CD" && direction != "BE" && direction != "BD") {
+                cout << "Invalid direction: " << direction << ". Use: D, E, C, B, CE, CD, BE, BD\n";
+                continue;
+            }
+
+            Caravan *caravan = manager.findCaravan(caravanNumber);
+            if (!caravan) {
+                cout << "Caravan " << caravanNumber << " not found!\n";
+                continue;
+            }
+
+            int dx = 0, dy = 0;
+            if (direction == "D") { dx = 1; } else if (direction == "E") { dx = -1; } else if (
+                direction == "C") { dy = -1; } else if (direction == "B") { dy = 1; } else if (direction == "CE") {
+                dx = -1;
+                dy = -1;
+            } else if (direction == "CD") {
+                dx = 1;
+                dy = -1;
+            } else if (direction == "BE") {
+                dx = -1;
+                dy = 1;
+            } else if (direction == "BD") {
+                dx = 1;
+                dy = 1;
+            }
+
+            if (manager.moveCaravan(caravan->getIdentifier(), dx, dy)) {
+                cout << "Caravan " << caravanNumber << " moved to " << direction << ".\n";
+            } else {
+                cout << "Caravan " << caravanNumber << " could not move to " << direction <<
+                        ". Maybe the destination is not valid?\n";
+            }
+        } else if (command == "comprac") {
+            char city;
             char type;
+
             ss >> city >> type;
+
+            if (ss.fail() || ss.peek() != EOF) {
+                cout << "Invalid command format. Use: comprac <city> <type>\n";
+                continue;
+            }
+            if (!isupper(city) || !isalpha(city) || city > 'Z') {
+                cout << "City must be a single uppercase letter.\n";
+                continue;
+            }
+            if (type != 'C' && type != 'M' && type != 'S') {
+                cout << "Type must be one of: C, M, S (uppercase also)\n";
+                continue;
+            }
             manager.buyCaravan(city, type);
+        } else if (command == "sair") {
+            cout << "Exiting simulation.\n";
+            exit(0);
+        } else {
+            cout << "Invalid command.\n";
         }
-
-
-
-
-        //cout << "CMD " << cmd << " PARAMS " << params << endl;
-
-        //executCommand("");
-
-
-
-
-
-
-        //CMD command = stringToCMD(input);
-        //executeCommand(command);
     }
 }
 
-void Simulator::setupManager()
-{
+
+void Simulator::setupManager() {
     manager.setCoins(model.coins);
     manager.setNewItemsCouldown(model.turnsBetweenNewItems);
     manager.setItemDuration(model.itemDuration);
