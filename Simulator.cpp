@@ -11,11 +11,7 @@
 
 Simulator::Simulator()
     : lines(0), columns(0), screen(lines, columns), manager(GameManager()), model(GameModel()), configurator(model) {
-    const string filename = "config.txt";
-    configurator.readConfigFile(filename);
-    configurator.displayConfig();
-    lines = model.lines;
-    columns = model.columns;
+    initialPhase = true;
     turn = 0;
     // setup GameManager;
     setupManager();
@@ -57,7 +53,37 @@ void Simulator::show() {
 void Simulator::execute() {
     string input;
 
-    while (true) {
+    while (initialPhase == true) {
+        cout << "Enter command: ";
+        getline(cin, input);
+        istringstream ss(input);
+        string command;
+        ss >> command;
+
+        string filename;
+
+        if (command == "config") {
+            // Check if a filename is provided after "config"
+            if (ss >> filename) {
+                configurator.readConfigFile(filename);
+                configurator.displayConfig();
+                lines = model.lines;
+                columns = model.columns;
+                initialPhase = false; // Transition out of the initial phase
+            } else {
+                cout << "Error: Missing filename after 'config' command.\n";
+            }
+        }
+        else if (command == "sair") {
+            cout << "Exiting program.\n";
+            exit(0);
+        }
+        else {
+            cout << "Invalid command.\n";
+        }
+    }
+
+    while (initialPhase == false) {
         cout << "Enter command: ";
         getline(cin, input);
         istringstream ss(input);
@@ -131,7 +157,12 @@ void Simulator::execute() {
                 }
             }
         }
-
+        else if (command == "caravana") {
+            cout << "To be implemented..." << endl;
+        }
+        else if (command == "vende") {
+            cout << "To be implemented..." << endl;
+        }
         else if (command == "move") {
             int caravanNumber;
             string direction;
@@ -188,9 +219,38 @@ void Simulator::execute() {
                         ". Maybe the destination is not valid?\n";
             }
         }
-        else if (command == "sair") {
-            cout << "Exiting simulation.\n";
-            exit(0);
+        else if (command == "auto") {
+            cout << "To be implemented..." << endl;
+        }
+        else if (command == "stop") {
+            cout << "To be implemented..." << endl;
+        }
+        else if (command == "barbaro") {
+            cout << "To be implemented..." << endl;
+        }
+        else if (command == "areia") {
+            cout << "To be implemented..." << endl;
+        }
+        else if (command == "moedas") {
+            cout << "To be implemented..." << endl;
+        }
+        else if (command == "tripul") {
+            cout << "To be implemented..." << endl;
+        }
+        else if (command == "saves") {
+            cout << "To be implemented..." << endl;
+        }
+        else if (command == "loads") {
+            cout << "To be implemented..." << endl;
+        }
+        else if (command == "lists") {
+            cout << "To be implemented..." << endl;
+        }
+        else if (command == "dels") {
+            cout << "To be implemented..." << endl;
+        }
+        else if (command == "terminar") {
+            cout << "To be implemented..." << endl;
         }
         else {
             cout << "Invalid command.\n";
