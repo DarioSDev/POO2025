@@ -77,8 +77,12 @@ void GameConfigurator::readConfigFile(const string& filename) {
                     model.map.push_back(city);
                     model.cityIdentifiers.push_back(city->getIdentifier());
                 }
-                else if (isdigit(content))
-                    model.map.push_back(new MerchantCaravan(x, y, content, 10));
+                else if (isdigit(content)) {
+                    MapContentItem* caravan = new MerchantCaravan(x, y, content, 10);
+                    model.map.push_back(caravan);
+                    model.caravanIdentifiers.push_back(caravan->getIdentifier());
+
+                }
                 else if (content == '!')
                     model.map.push_back(new BarbarianCaravan(x, y, content, 10, 10));
 

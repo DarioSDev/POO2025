@@ -12,6 +12,7 @@ class GameModel {
 public:
     vector<MapContentItem *> map;
     vector<char> cityIdentifiers;
+    vector<int> caravanIdentifiers;
     int lines;
     int columns;
     int coins;

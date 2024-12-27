@@ -4,10 +4,10 @@
 
 
 #include "Simulator.h"
-#include "CMD.h"
 #include "GameConfigurator.h"
 #include "Mountain.h" // TODO REMOVER
 #include <algorithm>
+#include <fstream>
 
 Simulator::Simulator()
     : lines(0), columns(0), screen(lines, columns), manager(GameManager()), model(GameModel()), configurator(model) {
@@ -54,7 +54,7 @@ void Simulator::execute() {
     string input;
 
     while (initialPhase == true) {
-        cout << "Enter command: ";
+        cout << "\nEnter command: ";
         getline(cin, input);
         istringstream ss(input);
         string command;
@@ -64,13 +64,20 @@ void Simulator::execute() {
 
         if (command == "config") {
             if (ss >> filename) {
-                configurator.readConfigFile(filename);
-                configurator.displayConfig();
-                lines = model.lines;
-                columns = model.columns;
-                initialPhase = false;
+                ifstream file(filename);
+                if (!file.is_open()) {
+                    cout << "Error: File '" << filename << "' does not exist or cannot be opened.\n";
+                    cout << "Please enter the full 'config' command with a valid filename.";
+                } else {
+                    configurator.readConfigFile(filename);
+                    configurator.displayConfig();
+                    lines = model.lines;
+                    columns = model.columns;
+                    initialPhase = false;
+                }
             } else {
                 cout << "Error: Missing filename after 'config' command.\n";
+                cout << "Please enter the full 'config' command with a filename: ";
             }
         }
         else if (command == "sair") {
@@ -89,8 +96,8 @@ void Simulator::execute() {
         string command;
         ss >> command;
 
-        if (command == "show") {
-            show();
+        if (command == "exec") {
+            cout << "To be implemented..." << endl;
         }
         else if (command == "prox") {
             int num = 0;
@@ -157,7 +164,36 @@ void Simulator::execute() {
             }
         }
         else if (command == "caravana") {
-            cout << "To be implemented..." << endl;
+            char caravanId;
+            if (ss >> caravanId) {
+                if (ss.peek() != EOF) {
+                    cout << "Error: Extra input after caravan ID. Use: caravana <caravan no.>" << endl;
+                } else {
+                    cout << "Caravana ID: " << caravanId << " received.\n";
+                    auto it = find(model.caravanIdentifiers.begin(), model.caravanIdentifiers.end(), caravanId);
+                    if (it == model.caravanIdentifiers.end()) {
+                        cout << "Caravan " << caravanId << " not found.\n";
+                    } else {
+                        bool caravanFound = false;
+                        for (auto* item : model.map) {
+                            Caravan* caravan = dynamic_cast<Caravan*>(item);
+                            if (caravan) {
+                                if (caravan->getIdentifier() == caravanId) {
+                                    cout << "Caravan " << caravanId << " found in the map.\n";
+                                    caravanFound = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (!caravanFound) {
+                            cout << "Caravan " << caravanId << " not found in the map.\n";
+                        }
+                    }
+                }
+            } else {
+                cout << "Error: Invalid caravan ID. Use: caravana <caravan no.>\n";
+            }
         }
         else if (command == "vende") {
             cout << "To be implemented..." << endl;

@@ -50,6 +50,7 @@ void Caravan::move() {
 void Caravan::displayInfo()
 {
     // TODO DISPLAY INFO
+    cout << "Esta caravana está a mostrar a info\n" << endl;
 }
 
 Caravan* Caravan::duplicate() const

@@ -16,7 +16,6 @@ class Caravan : public MapContentItem {
 protected:
     int crew;    // Number of crew members
     const int maxTons;
-
 public:
     // Constructor
     Caravan();
