@@ -7,6 +7,7 @@
 #include "CMD.h"
 #include "GameConfigurator.h"
 #include "Mountain.h" // TODO REMOVER
+#include <algorithm>
 
 Simulator::Simulator()
     : lines(0), columns(0), screen(lines, columns), manager(GameManager()), model(GameModel()), configurator(model) {
@@ -65,7 +66,8 @@ void Simulator::execute() {
 
         if (command == "show") {
             show();
-        } else if (command == "prox") {
+        }
+        else if (command == "prox") {
             int num = 0;
             if (ss >> num) {
                 if (ss.peek() != EOF) {
@@ -82,14 +84,15 @@ void Simulator::execute() {
             } else {
                 cout << "Invalid command format. Use: prox <positive number>\n";
             }
-        } else if (command == "comprac") {
+        }
+        else if (command == "comprac") {
             char city;
             char type;
 
             ss >> city >> type;
 
             if (ss.fail() || ss.peek() != EOF) {
-                cout << "Invalid command format. Use: comprac <city> <type>\n";
+                cout << "Invalid command format. Use: comprac <city letter> <type>\n";
                 continue;
             }
             if (!isupper(city) || !isalpha(city) || city > 'Z') {
@@ -101,9 +104,42 @@ void Simulator::execute() {
                 continue;
             }
             manager.buyCaravan(city, type);
-        } else if (command == "precos") {
+        }
+        else if (command == "precos") {
             showPrices();
-        } else if (command == "move") {
+        }
+        else if (command == "cidade") {
+            // TODO delete
+            cout << "Available cities: ";
+            for (size_t i = 0; i < model.cityIdentifiers.size(); ++i) {
+                cout << model.cityIdentifiers[i];
+                if (i != model.cityIdentifiers.size() - 1) {
+                    cout << " | ";
+                }
+            }
+            cout << endl;
+            // TODO delete
+
+            char city;
+            if (!(ss >> city) || ss.peek() != EOF) {
+                cout << "Invalid command format. Use: cidade <city letter>\n";
+                continue;
+            }
+
+            if (!islower(city)) {
+                cout << "Invalid city identifier. Must be a lowercase letter.\n";
+                continue;
+            }
+
+            auto it = find(model.cityIdentifiers.begin(), model.cityIdentifiers.end(), city);
+            if (it == model.cityIdentifiers.end()) {
+                cout << "City " << city << " not found in the model.\n";
+            } else {
+                cout << "City " << city << " found in the model.\n";
+            }
+        }
+
+        else if (command == "move") {
             int caravanNumber;
             string direction;
 
@@ -158,10 +194,12 @@ void Simulator::execute() {
                 cout << "Caravan " << caravanNumber << " could not move to " << direction <<
                         ". Maybe the destination is not valid?\n";
             }
-        } else if (command == "sair") {
+        }
+        else if (command == "sair") {
             cout << "Exiting simulation.\n";
             exit(0);
-        } else {
+        }
+        else {
             cout << "Invalid command.\n";
         }
     }

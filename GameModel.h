@@ -11,6 +11,7 @@ using namespace std;
 class GameModel {
 public:
     vector<MapContentItem *> map;
+    vector<char> cityIdentifiers;
     int lines;
     int columns;
     int coins;
@@ -22,6 +23,7 @@ public:
     int caravanPrice;
     int turnsBetweenNewBarbarians;
     int barbariansDuration;
+
     GameModel();
 
     void setLines(int lines)

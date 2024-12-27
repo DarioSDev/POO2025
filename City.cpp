@@ -46,3 +46,7 @@ void City::inspect() {
         }
     }
 }
+
+char City::getIdentifier() const {
+    return identifier;
+}

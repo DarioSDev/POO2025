@@ -13,6 +13,9 @@ using namespace std;
 
 class City: public MapContentItem {
     vector<Caravan *> caravans; // List of caravans in the city
+    int x;
+    int y;
+    char identifier;
 
 public:
     // Constructor

@@ -72,8 +72,11 @@ void GameConfigurator::readConfigFile(const string& filename) {
                     model.map.push_back(new Desert(x, y, content));
                 else if(content == '+')
                     model.map.push_back(new Mountain(x, y, content));
-                else if(islower(content))
-                    model.map.push_back(new City(x, y, content));
+                else if(islower(content)) {
+                    City* city = new City(x, y, content);
+                    model.map.push_back(city);
+                    model.cityIdentifiers.push_back(city->getIdentifier());
+                }
                 else if (isdigit(content))
                     model.map.push_back(new MerchantCaravan(x, y, content, 10));
                 else if (content == '!')
