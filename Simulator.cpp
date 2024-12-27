@@ -82,6 +82,27 @@ void Simulator::execute() {
             } else {
                 cout << "Invalid command format. Use: prox <positive number>\n";
             }
+        } else if (command == "comprac") {
+            char city;
+            char type;
+
+            ss >> city >> type;
+
+            if (ss.fail() || ss.peek() != EOF) {
+                cout << "Invalid command format. Use: comprac <city> <type>\n";
+                continue;
+            }
+            if (!isupper(city) || !isalpha(city) || city > 'Z') {
+                cout << "City must be a single uppercase letter.\n";
+                continue;
+            }
+            if (type != 'C' && type != 'M' && type != 'S') {
+                cout << "Type must be one of: C, M, S (uppercase also)\n";
+                continue;
+            }
+            manager.buyCaravan(city, type);
+        } else if (command == "precos") {
+            showPrices();
         } else if (command == "move") {
             int caravanNumber;
             string direction;
@@ -137,25 +158,6 @@ void Simulator::execute() {
                 cout << "Caravan " << caravanNumber << " could not move to " << direction <<
                         ". Maybe the destination is not valid?\n";
             }
-        } else if (command == "comprac") {
-            char city;
-            char type;
-
-            ss >> city >> type;
-
-            if (ss.fail() || ss.peek() != EOF) {
-                cout << "Invalid command format. Use: comprac <city> <type>\n";
-                continue;
-            }
-            if (!isupper(city) || !isalpha(city) || city > 'Z') {
-                cout << "City must be a single uppercase letter.\n";
-                continue;
-            }
-            if (type != 'C' && type != 'M' && type != 'S') {
-                cout << "Type must be one of: C, M, S (uppercase also)\n";
-                continue;
-            }
-            manager.buyCaravan(city, type);
         } else if (command == "sair") {
             cout << "Exiting simulation.\n";
             exit(0);
@@ -170,4 +172,11 @@ void Simulator::setupManager() {
     manager.setCoins(model.coins);
     manager.setNewItemsCouldown(model.turnsBetweenNewItems);
     manager.setItemDuration(model.itemDuration);
+}
+
+void Simulator::showPrices() {
+    cout << "Prices:" << endl;
+    cout << "Buy Merch: " << model.merchBuyPrice << endl;
+    cout << "Sell Merch: " << model.merchSellPrice << endl;
+    cout << "Buy Caravan: " << model.caravanPrice << endl;
 }

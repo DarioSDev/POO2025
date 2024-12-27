@@ -113,5 +113,3 @@ bool GameManager::moveCaravan(int id, int dx, int dy)
 }
 
 
-
-
