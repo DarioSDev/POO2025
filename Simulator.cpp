@@ -63,13 +63,12 @@ void Simulator::execute() {
         string filename;
 
         if (command == "config") {
-            // Check if a filename is provided after "config"
             if (ss >> filename) {
                 configurator.readConfigFile(filename);
                 configurator.displayConfig();
                 lines = model.lines;
                 columns = model.columns;
-                initialPhase = false; // Transition out of the initial phase
+                initialPhase = false;
             } else {
                 cout << "Error: Missing filename after 'config' command.\n";
             }
