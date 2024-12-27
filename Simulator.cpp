@@ -169,7 +169,6 @@ void Simulator::execute() {
                 if (ss.peek() != EOF) {
                     cout << "Error: Extra input after caravan ID. Use: caravana <caravan no.>" << endl;
                 } else {
-                    cout << "Caravana ID: " << caravanId << " received.\n";
                     auto it = find(model.caravanIdentifiers.begin(), model.caravanIdentifiers.end(), caravanId);
                     if (it == model.caravanIdentifiers.end()) {
                         cout << "Caravan " << caravanId << " not found.\n";
