@@ -41,14 +41,14 @@ void GameConfigurator::readConfigFile(const string& filename) {
     if (getline(file, line)) {
         stringstream ss(line);
         string temp;
-        ss >> temp >> model.lines; // Ler "linhas" e o valor correspondente
+        ss >> temp >> model.lines;
     }
 
     // Ler o número de colunas
     if (getline(file, line)) {
         stringstream ss(line);
         string temp;
-        ss >> temp >> model.columns; // Ler "colunas" e o valor correspondente
+        ss >> temp >> model.columns;
     }
 
     // Ler o grid do mapa
@@ -104,9 +104,6 @@ void GameConfigurator::readConfigFile(const string& filename) {
     }
 
     file.close();
-    cout << "After reading: linhas = " << model.lines << ", colunas = " << model.columns << endl;
-
-    printf("Configurator model address: %p\n", (void*)&model);
 }
 
 // Método para mostrar as configurações carregadas

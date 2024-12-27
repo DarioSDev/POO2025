@@ -8,11 +8,8 @@
 
 using namespace std;
 
-City::City( int x,
-            int y,
-            char identifier) : MapContentItem(  x,
-                                                y,
-                                                identifier) {}
+City::City(int x, int y, char identifier)
+    : MapContentItem(x, y, identifier), identifier(identifier) {}
 
 // Allow a caravan to enter the city
 void City::addCaravan(Caravan* caravan) {

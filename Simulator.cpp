@@ -109,33 +109,26 @@ void Simulator::execute() {
             showPrices();
         }
         else if (command == "cidade") {
-            // TODO delete
-            cout << "Available cities: ";
-            for (size_t i = 0; i < model.cityIdentifiers.size(); ++i) {
-                cout << model.cityIdentifiers[i];
-                if (i != model.cityIdentifiers.size() - 1) {
-                    cout << " | ";
-                }
-            }
-            cout << endl;
-            // TODO delete
-
             char city;
             if (!(ss >> city) || ss.peek() != EOF) {
                 cout << "Invalid command format. Use: cidade <city letter>\n";
                 continue;
             }
-
             if (!islower(city)) {
                 cout << "Invalid city identifier. Must be a lowercase letter.\n";
                 continue;
             }
-
             auto it = find(model.cityIdentifiers.begin(), model.cityIdentifiers.end(), city);
             if (it == model.cityIdentifiers.end()) {
-                cout << "City " << city << " not found in the model.\n";
+                cout << "City " << city << " not found.\n";
             } else {
-                cout << "City " << city << " found in the model.\n";
+                for (auto* item : model.map) {
+                    City* cityObj = dynamic_cast<City*>(item);
+                    if (cityObj && cityObj->getIdentifier() == city) {
+                        cityObj->inspect();
+                        break;
+                    }
+                }
             }
         }
 
