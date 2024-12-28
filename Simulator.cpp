@@ -341,7 +341,20 @@ void Simulator::execute() {
 
         }
         else if (command == "loads") {
-            cout << "To be implemented..." << endl;
+            string bufferName;
+            if (ss >> bufferName) {
+                if (ss.peek() != EOF) {
+                    cout << "Invalid command format. Use: loads <bufferName>\n";
+                    continue;
+                }
+                screen.setName(bufferName.data());
+
+                if ( !manager.displayBuffer(bufferName) )
+                    cout << "Buffer with the name '" << bufferName << "' NOT FOUND, try again!" << endl;
+
+            } else {
+                cout << "Invalid command format. Use: loads <bufferName>\n";
+            }
         }
         else if (command == "lists") {
             cout << "To be implemented..." << endl;
@@ -361,7 +374,7 @@ void Simulator::execute() {
                     cout << "Buffer with the name '" << bufferName << "' NOT FOUND, try again!" << endl;
 
             } else {
-                cout << "Invalid command format. Use: saves <bufferName>\n";
+                cout << "Invalid command format. Use: dels <bufferName>\n";
             }
         }
         else if (command == "terminar") {

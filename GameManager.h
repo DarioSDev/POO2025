@@ -47,6 +47,7 @@ public:
     bool moveCaravan(Caravan* caravan, int dx, int dy);
     bool addMemoryBuffer(Buffer buffer);
     bool removeMemoryBuffer(string name);
+    bool displayBuffer(string name);
 };
 
 

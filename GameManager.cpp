@@ -135,4 +135,15 @@ bool GameManager::removeMemoryBuffer(string name) {
     return false;
 }
 
+bool GameManager::displayBuffer(string name)
+{
+    auto it = memoryBuffers.find(name);
+
+    if (it != memoryBuffers.end()) {
+        it->second.render();
+        return true;
+    }
+
+    return false;
+}
 
