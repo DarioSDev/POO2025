@@ -331,10 +331,10 @@ void Simulator::execute() {
                 screen.setName(bufferName.data());
 
                 if ( manager.addMemoryBuffer(screen) )
-                    cout << "Current Buffer saved with name '" << bufferName << "'" << endl;
+                    cout << "Current Buffer saved with name '" << bufferName << "'." << endl;
                 else
                     cout << "There's already a Buffer with the name '" << bufferName << "', try again!" << endl;
-                
+
             } else {
                 cout << "Invalid command format. Use: saves <bufferName>\n";
             }
@@ -347,7 +347,22 @@ void Simulator::execute() {
             cout << "To be implemented..." << endl;
         }
         else if (command == "dels") {
-            cout << "To be implemented..." << endl;
+            string bufferName;
+            if (ss >> bufferName) {
+                if (ss.peek() != EOF) {
+                    cout << "Invalid command format. Use: dels <bufferName>\n";
+                    continue;
+                }
+                screen.setName(bufferName.data());
+
+                if ( manager.removeMemoryBuffer(bufferName) )
+                    cout << "Buffer with name '" << bufferName << "' successfully deleted." << endl;
+                else
+                    cout << "Buffer with the name '" << bufferName << "' NOT FOUND, try again!" << endl;
+
+            } else {
+                cout << "Invalid command format. Use: saves <bufferName>\n";
+            }
         }
         else if (command == "terminar") {
             cout << "Pontuação ->" << model.coins << endl;
