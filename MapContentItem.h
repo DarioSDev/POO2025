@@ -5,6 +5,7 @@
 #ifndef MAPCONTENTITEM_H
 #define MAPCONTENTITEM_H
 #include <string>
+#include <vector>
 using namespace std;
 
 class MapContentItem {
@@ -24,9 +25,9 @@ public:
 
     // TODO FIX MAPA EMISFERICO
     void move(MoveDirection direction);
-
+    char getItemTypeAt(int x, int y, const vector<MapContentItem*>& map);
     char getIdentifier();
-    char getType();
+    char getType() const;
     int getX() const;
     int getY() const;
 };

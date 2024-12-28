@@ -20,7 +20,7 @@ char MapContentItem::getIdentifier()
     return identifier;
 }
 
-char MapContentItem::getType()
+char MapContentItem::getType() const
 {
     return type;
 }
@@ -33,4 +33,13 @@ int MapContentItem::getX() const
 int MapContentItem::getY() const
 {
     return y;
+}
+
+char MapContentItem::getItemTypeAt(int x, int y, const vector<MapContentItem*>& map) {
+    for (const auto* item : map) {
+        if (item->getX() == x && item->getY() == y) {
+            return item->getType();
+        }
+    }
+    return '\0';
 }

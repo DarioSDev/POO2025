@@ -27,20 +27,17 @@ void Simulator::makeMap() {
 
 void Simulator::show() {
     // TODO need to iterate through something besides configurator.model.map && overrides when caravans and cities
-    for (MapContentItem * item: configurator.model.map)
-    {
+    for (MapContentItem *item: configurator.model.map) {
         if (item->getType() == 'D' || item->getType() == 'M')
             map[item->getY()][item->getX()] = item->getIdentifier();
     }
 
-    for (MapContentItem * item: configurator.model.map)
-    {
+    for (MapContentItem *item: configurator.model.map) {
         if (item->getType() == 'C')
             map[item->getY()][item->getX()] = item->getIdentifier();
     }
 
-    for (MapContentItem * item: configurator.model.map)
-    {
+    for (MapContentItem *item: configurator.model.map) {
         if (item->getType() == 'U')
             map[item->getY()][item->getX()] = item->getIdentifier();
     }
@@ -85,12 +82,10 @@ void Simulator::execute() {
                 cout << "Error: Missing filename after 'config' command.\n";
                 cout << "Please enter the full 'config' command with a filename: ";
             }
-        }
-        else if (command == "sair") {
+        } else if (command == "sair") {
             cout << "Exiting program.\n";
             exit(0);
-        }
-        else {
+        } else {
             cout << "Invalid command.\n";
         }
     }
@@ -106,8 +101,7 @@ void Simulator::execute() {
             // TODO REMOVE LATER - JUST FOR TESTING
             show();
             cout << "To be implemented..." << endl;
-        }
-        else if (command == "prox") {
+        } else if (command == "prox") {
             int num = 0;
             if (ss >> num) {
                 if (ss.peek() != EOF) {
@@ -124,8 +118,7 @@ void Simulator::execute() {
             } else {
                 cout << "Invalid command format. Use: prox <positive number>\n";
             }
-        }
-        else if (command == "comprac") {
+        } else if (command == "comprac") {
             char city;
             char type;
 
@@ -144,11 +137,9 @@ void Simulator::execute() {
                 continue;
             }
             manager.buyCaravan(city, type);
-        }
-        else if (command == "precos") {
+        } else if (command == "precos") {
             showPrices();
-        }
-        else if (command == "cidade") {
+        } else if (command == "cidade") {
             char city;
             if (!(ss >> city) || ss.peek() != EOF) {
                 cout << "Invalid command format. Use: cidade <city letter>\n";
@@ -162,16 +153,15 @@ void Simulator::execute() {
             if (it == model.cityIdentifiers.end()) {
                 cout << "City " << city << " not found.\n";
             } else {
-                for (auto* item : model.map) {
-                    City* cityObj = dynamic_cast<City*>(item);
+                for (auto *item: model.map) {
+                    City *cityObj = dynamic_cast<City *>(item);
                     if (cityObj && cityObj->getIdentifier() == city) {
                         cityObj->inspect();
                         break;
                     }
                 }
             }
-        }
-        else if (command == "caravana") {
+        } else if (command == "caravana") {
             char caravanId;
             if (ss >> caravanId) {
                 if (ss.peek() != EOF) {
@@ -182,8 +172,8 @@ void Simulator::execute() {
                         cout << "Caravan " << caravanId << " not found.\n";
                     } else {
                         bool caravanFound = false;
-                        for (auto* item : model.map) {
-                            Caravan* caravan = dynamic_cast<Caravan*>(item);
+                        for (auto *item: model.map) {
+                            Caravan *caravan = dynamic_cast<Caravan *>(item);
                             if (caravan) {
                                 if (caravan->getIdentifier() == caravanId) {
                                     caravan->displayInfo();
@@ -200,11 +190,9 @@ void Simulator::execute() {
             } else {
                 cout << "Error: Invalid caravan ID. Use: caravana <caravan no.>\n";
             }
-        }
-        else if (command == "vende") {
+        } else if (command == "vende") {
             cout << "To be implemented..." << endl;
-        }
-        else if (command == "move") {
+        } else if (command == "move") {
             char caravanId;
             string direction;
 
@@ -234,74 +222,94 @@ void Simulator::execute() {
             int dx = 0, dy = 0;
             if (direction == "D") { dx = 1; } else if (direction == "E") { dx = -1; } else if (
                 direction == "C") { dy = -1; } else if (direction == "B") { dy = 1; } else if (direction == "CE") {
-                    dx = -1;
-                    dy = -1;
-                } else if (direction == "CD") {
-                    dx = 1;
-                    dy = -1;
-                } else if (direction == "BE") {
-                    dx = -1;
-                    dy = 1;
-                } else if (direction == "BD") {
-                    dx = 1;
-                    dy = 1;
-                }
-
+                dx = -1;
+                dy = -1;
+            } else if (direction == "CD") {
+                dx = 1;
+                dy = -1;
+            } else if (direction == "BE") {
+                dx = -1;
+                dy = 1;
+            } else if (direction == "BD") {
+                dx = 1;
+                dy = 1;
+            }
 
             auto it = find(model.caravanIdentifiers.begin(), model.caravanIdentifiers.end(), caravanId);
             if (it == model.caravanIdentifiers.end()) {
                 cout << "Caravan " << caravanId << " not found.\n";
-            } else {
-                bool caravanFound = false;
-                for (auto* item : model.map) {
-                    Caravan* caravan = dynamic_cast<Caravan*>(item);
-                    if (caravan) {
-                        if (caravan->getIdentifier() == caravanId) {
-                            if (caravan->getY() == lines-1 && (direction == "B" || direction == "BE" || direction == "BD")) {
-                                dy = (lines-1) * -1;
-                            }
-                            if (caravan->getY() == 0 && (direction == "C" || direction == "CE" || direction == "CD")) {
-                                dy = (lines-1);
-                            }
-                            if (caravan->getX() == columns-1 && (direction == "D" || direction == "CD" || direction == "BD")) {
-                                dx = (columns-1) * -1;
-                            }
-                            if (caravan->getX() == 0 && (direction == "E" || direction == "CE" || direction == "BE")) {
-                                dx = (columns-1);
-                            }
-                            if (manager.moveCaravan(caravan, dx, dy)) {
-                                cout << "Caravan " << caravanId << " moved to " << direction << ".\n";
-                            } else {
-                                cout << "Caravan " << caravanId << " could not move to " << direction <<
-                                        ". Maybe the destination is not valid?\n";
-                            }
-                            cout << "atual x" << caravan->getX() << endl;
-                            cout << "atual y" << caravan->getY() << endl;
-                            caravanFound = true;
-                            break;
+                continue;
+            }
+
+            bool caravanFound = false;
+            for (auto *item: model.map) {
+                Caravan *caravan = dynamic_cast<Caravan *>(item);
+                if (caravan && caravan->getIdentifier() == caravanId) {
+                    if (caravan->getY() == lines - 1 && (direction == "B" || direction == "BE" || direction == "BD")) {
+                        dy = -(lines - 1);
+                    } else if (caravan->getY() == 0 && (direction == "C" || direction == "CE" || direction == "CD")) {
+                        dy = lines - 1;
+                    }
+
+                    if (caravan->getX() == columns - 1 && (
+                            direction == "D" || direction == "CD" || direction == "BD")) {
+                        dx = -(columns - 1);
+                    } else if (caravan->getX() == 0 && (direction == "E" || direction == "CE" || direction == "BE")) {
+                        dx = columns - 1;
+                    }
+
+                    bool canMove = true;
+                    int nextX = caravan->getX(), nextY = caravan->getY();
+                    if (direction == "B") nextY++;
+                    else if (direction == "C") nextY--;
+                    else if (direction == "D") nextX++;
+                    else if (direction == "E") nextX--;
+                    else if (direction == "BE") {
+                        nextX--;
+                        nextY++;
+                    } else if (direction == "BD") {
+                        nextX++;
+                        nextY++;
+                    } else if (direction == "CE") {
+                        nextX--;
+                        nextY--;
+                    } else if (direction == "CD") {
+                        nextX++;
+                        nextY--;
+                    }
+
+                    if (item->getItemTypeAt(nextX, nextY, model.map) == 'M' ||
+                        item->getItemTypeAt(nextX, nextY, model.map) == 'C') {
+                        cout << "Can't go in that direction: " << direction << "\n";
+                        canMove = false;
+                    }
+
+                    if (canMove) {
+                        if (manager.moveCaravan(caravan, dx, dy)) {
+                            cout << "Caravan " << caravanId << " moved to " << direction << ".\n";
+                        } else {
+                            cout << "Caravan " << caravanId << " could not move to " << direction <<
+                                    ". Maybe the destination is not valid?\n";
                         }
                     }
-                }
-                if (!caravanFound) {
-                    cout << "Caravan " << caravanId << " not found in the map.\n";
+
+                    caravanFound = true;
+                    break;
                 }
             }
 
-
-        }
-        else if (command == "auto") {
+            if (!caravanFound) {
+                cout << "Caravan " << caravanId << " not found in the map.\n";
+            }
+        } else if (command == "auto") {
             cout << "To be implemented..." << endl;
-        }
-        else if (command == "stop") {
+        } else if (command == "stop") {
             cout << "To be implemented..." << endl;
-        }
-        else if (command == "barbaro") {
+        } else if (command == "barbaro") {
             cout << "To be implemented..." << endl;
-        }
-        else if (command == "areia") {
+        } else if (command == "areia") {
             cout << "To be implemented..." << endl;
-        }
-        else if (command == "moedas") {
+        } else if (command == "moedas") {
             int amount = 0;
             if (ss >> amount) {
                 if (ss.peek() != EOF) {
@@ -317,11 +325,9 @@ void Simulator::execute() {
             } else {
                 cout << "Invalid command format. Use: moedas <integer amount>\n";
             }
-        }
-        else if (command == "tripul") {
+        } else if (command == "tripul") {
             cout << "To be implemented..." << endl;
-        }
-        else if (command == "saves") {
+        } else if (command == "saves") {
             string bufferName;
             if (ss >> bufferName) {
                 if (ss.peek() != EOF) {
@@ -339,8 +345,7 @@ void Simulator::execute() {
                 cout << "Invalid command format. Use: saves <bufferName>\n";
             }
 
-        }
-        else if (command == "loads") {
+        } else if (command == "loads") {
             string bufferName;
             if (ss >> bufferName) {
                 if (ss.peek() != EOF) {
@@ -355,11 +360,9 @@ void Simulator::execute() {
             } else {
                 cout << "Invalid command format. Use: loads <bufferName>\n";
             }
-        }
-        else if (command == "lists") {
+        } else if (command == "lists") {
             cout << "To be implemented..." << endl;
-        }
-        else if (command == "dels") {
+        } else if (command == "dels") {
             string bufferName;
             if (ss >> bufferName) {
                 if (ss.peek() != EOF) {
@@ -376,12 +379,10 @@ void Simulator::execute() {
             } else {
                 cout << "Invalid command format. Use: dels <bufferName>\n";
             }
-        }
-        else if (command == "terminar") {
+        } else if (command == "terminar") {
             cout << "Pontuação ->" << model.coins << endl;
             initialPhase = true;
-        }
-        else {
+        } else {
             cout << "Invalid command.\n";
         }
     }
