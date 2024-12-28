@@ -258,14 +258,26 @@ void Simulator::execute() {
                     Caravan* caravan = dynamic_cast<Caravan*>(item);
                     if (caravan) {
                         if (caravan->getIdentifier() == caravanId) {
-                            caravan->displayInfo();
+                            if (caravan->getY() == lines-1 && (direction == "B" || direction == "BE" || direction == "BD")) {
+                                dy = (lines-1) * -1;
+                            }
+                            if (caravan->getY() == 0 && (direction == "C" || direction == "CE" || direction == "CD")) {
+                                dy = (lines-1);
+                            }
+                            if (caravan->getX() == columns-1 && (direction == "D" || direction == "CD" || direction == "BD")) {
+                                dx = (columns-1) * -1;
+                            }
+                            if (caravan->getX() == 0 && (direction == "E" || direction == "CE" || direction == "BE")) {
+                                dx = (columns-1);
+                            }
                             if (manager.moveCaravan(caravan, dx, dy)) {
                                 cout << "Caravan " << caravanId << " moved to " << direction << ".\n";
                             } else {
                                 cout << "Caravan " << caravanId << " could not move to " << direction <<
                                         ". Maybe the destination is not valid?\n";
                             }
-
+                            cout << "atual x" << caravan->getX() << endl;
+                            cout << "atual y" << caravan->getY() << endl;
                             caravanFound = true;
                             break;
                         }
@@ -309,7 +321,7 @@ void Simulator::execute() {
             cout << "To be implemented..." << endl;
         }
         else if (command == "terminar") {
-            cout << "Pontuação -> 1000\n";  // TODO dar pontuação
+            cout << "Pontuação ->" << model.coins << endl;
             initialPhase = true;
         }
         else {
