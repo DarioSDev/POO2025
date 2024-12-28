@@ -8,7 +8,6 @@
 #include "MapContentItem.h"
 
 class Desert : public MapContentItem {
-    Caravan caravan;
 public:
     Desert( int x,
             int y,

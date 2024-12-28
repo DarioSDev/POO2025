@@ -13,35 +13,27 @@ Simulator::Simulator()
     : lines(0), columns(0), screen(lines, columns), manager(GameManager()), model(GameModel()), configurator(model) {
     initialPhase = true;
     turn = 0;
-    // setup GameManager;
     setupManager();
     screen = Buffer(lines, columns);
-    //makeMap();
+    makeMap();
 }
 
 void Simulator::makeMap() {
     map.clear();
+    // Populates ALL as Deserts
     for (int i = 0; i < lines; i++) {
         string linha(lines, '.');
         map.push_back(linha);
     }
-    // TODO POPULAR COM ITEMS DO GAME MANAGER
-
-    //Mountain d = Mountain(10, 20);
-
-    // auto it = d.getDesertPositions();
-
-
-    // eg de preenchimento
-    map[2][3] = '+'; // Montanha
-    map[1][4] = 'C'; // Cidade TODO mudar para nums
-    //for (auto it : d.getDesertPositions()) {
-    //    std::cout << "Primeiro valor: " << it.first << ", Segundo valor: " << it.second << std::endl;
-    //    mapa[it.first][it.second] = '+';
-    //}
 }
 
 void Simulator::show() {
+    // TODO need to iterate through something besides configurator.model.map
+    for (MapContentItem * item: configurator.model.map)
+    {
+        map[item->getY()][item->getX()] = item->getIdentifier();
+    }
+
     screen.clear();
     for (int i = 0; i < lines; i++) {
         screen.moveCursor(i, 0);

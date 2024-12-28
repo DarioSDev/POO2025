@@ -71,7 +71,7 @@ void GameConfigurator::readConfigFile(const string& filename) {
                 if (content == '.')
                     model.map.push_back(new Desert(x, y, content));
                 else if(content == '+')
-                    model.map.push_back(new Mountain(x, y, content));
+                    model.map.push_back(new Mountain(x, y));
                 else if(islower(content)) {
                     City* city = new City(x, y, content);
                     model.map.push_back(city);

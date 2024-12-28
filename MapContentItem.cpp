@@ -27,5 +27,5 @@ int MapContentItem::getX() const
 
 int MapContentItem::getY() const
 {
-    return x;
+    return y;
 }

@@ -17,7 +17,7 @@ class Mountain final : public MapContentItem {
 public:
     Mountain(   int x,
                 int y,
-                char identifier);
+                char identifier = '+');
 };
 
 #endif //Montain_H

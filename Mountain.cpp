@@ -6,7 +6,7 @@
 
 Mountain::Mountain( int x,
                     int y,
-                    char identifier = '+') :
+                    char identifier) :
                     MapContentItem(x, y, identifier){
 }
 

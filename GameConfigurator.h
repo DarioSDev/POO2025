@@ -12,8 +12,9 @@
 using namespace std;
 
 class GameConfigurator {
-    GameModel& model;
 public:
+    // TODO Move to some getter function later
+    GameModel& model;
     GameConfigurator(GameModel& model);
 
     void configGame(string fileName);
