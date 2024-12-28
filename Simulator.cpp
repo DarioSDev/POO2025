@@ -190,6 +190,32 @@ void Simulator::execute() {
             } else {
                 cout << "Error: Invalid caravan ID. Use: caravana <caravan no.>\n";
             }
+        }
+        else if (command == "compra") {
+            char caravanId;
+            int tons;
+            if (!(ss >> caravanId >> tons)) {
+                cout << "Invalid compra command format. Use: compra <caravan no.> <merch tons.>\n";
+                continue;
+            }
+
+            auto it = find(model.caravanIdentifiers.begin(), model.caravanIdentifiers.end(), caravanId);
+            if (it == model.caravanIdentifiers.end()) {
+                cout << "Caravan " << caravanId << " not found.\n";
+                continue;
+            }
+
+            for (auto *item: model.map)
+            {
+                MapContentItem *caravan = dynamic_cast<MapContentItem *>(item);
+                if (caravan && caravan->getIdentifier() == caravanId)
+                {
+                    cout << "ADSDADA1 " << caravan->getX() << " " << caravan->getY() << endl;
+                    cout << "ADSDADA1 " << item->getType() << endl;
+                }
+            }
+
+
         } else if (command == "vende") {
             cout << "To be implemented..." << endl;
         } else if (command == "move") {
