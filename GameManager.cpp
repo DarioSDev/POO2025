@@ -32,6 +32,12 @@ void GameManager::setCoins(int coins)
     this->coins = isValidCoins(coins);
 }
 
+void GameManager::addCoins(int coins)
+{
+    this->coins += coins;
+}
+
+
 void GameManager::combat()
 {
     // TODO combat
@@ -106,6 +112,26 @@ bool GameManager::moveCaravan(Caravan* caravan, int dx, int dy)
     if(caravan->move(dx, dy)) {
         return true;
     }
+    return false;
+}
+
+bool GameManager::addMemoryBuffer(Buffer buffer) {
+    if (memoryBuffers.contains(buffer.getName())) {
+        return false;
+    }
+
+    memoryBuffers[buffer.getName()] = buffer;
+    return true;
+}
+
+bool GameManager::removeMemoryBuffer(string name) {
+    auto it = memoryBuffers.find(name);
+
+    if (it != memoryBuffers.end()) {
+        memoryBuffers.erase(it);
+        return true;
+    }
+
     return false;
 }
 

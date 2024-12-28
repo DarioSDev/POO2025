@@ -29,7 +29,6 @@ void Simulator::show() {
     // TODO need to iterate through something besides configurator.model.map && overrides when caravans and cities
     for (MapContentItem * item: configurator.model.map)
     {
-        cout << item->getType();
         if (item->getType() == 'D' || item->getType() == 'M')
             map[item->getY()][item->getX()] = item->getIdentifier();
     }
@@ -77,6 +76,7 @@ void Simulator::execute() {
                     configurator.displayConfig();
                     lines = model.lines;
                     columns = model.columns;
+                    manager.setCoins(model.coins);
                     initialPhase = false;
                     screen = Buffer(lines, columns);
                     makeMap();
@@ -302,13 +302,43 @@ void Simulator::execute() {
             cout << "To be implemented..." << endl;
         }
         else if (command == "moedas") {
-            cout << "To be implemented..." << endl;
+            int amount = 0;
+            if (ss >> amount) {
+                if (ss.peek() != EOF) {
+                    cout << "Invalid command format. Use: moedas <integer amount>\n";
+                    continue;
+                }
+                cout << "Current Coins: " << manager.getCoins() << endl;
+                manager.addCoins(amount);
+                cout << (amount > 0 ? "Adding " : "Removing ") << amount << " coins.\n";
+                cout << "Updated Coins: " << manager.getCoins() << endl;
+            } else if (ss.eof()) {
+                cout << "Current Coins: " << manager.getCoins() << endl;
+            } else {
+                cout << "Invalid command format. Use: moedas <integer amount>\n";
+            }
         }
         else if (command == "tripul") {
             cout << "To be implemented..." << endl;
         }
         else if (command == "saves") {
-            cout << "To be implemented..." << endl;
+            string bufferName;
+            if (ss >> bufferName) {
+                if (ss.peek() != EOF) {
+                    cout << "Invalid command format. Use: saves <bufferName>\n";
+                    continue;
+                }
+                screen.setName(bufferName.data());
+
+                if ( manager.addMemoryBuffer(screen) )
+                    cout << "Current Buffer saved with name '" << bufferName << "'" << endl;
+                else
+                    cout << "There's already a Buffer with the name '" << bufferName << "', try again!" << endl;
+                
+            } else {
+                cout << "Invalid command format. Use: saves <bufferName>\n";
+            }
+
         }
         else if (command == "loads") {
             cout << "To be implemented..." << endl;

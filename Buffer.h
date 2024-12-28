@@ -6,6 +6,7 @@
 #define BUFFER_H
 
 class Buffer {
+    char * name;
     char * buffer;
     int lines;
     int columns;
@@ -20,7 +21,13 @@ public:
 
     Buffer();
 
+    Buffer(const Buffer& other);
+
     ~Buffer();
+
+    void setName(char * name);
+
+    const char* getName();
 
     void clear();
 
@@ -46,6 +53,7 @@ public:
     // TODO: MAKE OVERLOAD LATER
     Buffer& operator<<(int num);
 
+    Buffer& operator=(const Buffer& other);
 };
 
 #endif //BUFFER_H

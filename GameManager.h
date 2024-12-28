@@ -6,6 +6,7 @@
 #define GAMEMANAGER_H
 #include <vector>
 
+#include "Buffer.h"
 #include "Caravan.h"
 #include "City.h"
 #include "GameConfigurator.h"
@@ -27,6 +28,7 @@ class GameManager {
 
     // TODO: vector the mapItemsClass
     vector<Caravan *> caravans;
+    map<string, Buffer> memoryBuffers;
 
     int isValidCoins(int coins) const;
 public:
@@ -36,12 +38,15 @@ public:
     void checkGameStatus();
     int getCoins() const;
     void setCoins(int coins);
+    void addCoins(int coins);
     void setNewItemsCouldown(int cd);
     void setItemDuration(int cd);
     void configGame(string fileName = "config.txt");
     void buyCaravan(int city, char type);
     Caravan * findCaravan(char id);
     bool moveCaravan(Caravan* caravan, int dx, int dy);
+    bool addMemoryBuffer(Buffer buffer);
+    bool removeMemoryBuffer(string name);
 };
 
 
