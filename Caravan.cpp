@@ -43,14 +43,14 @@ void Caravan::removeCrew(int count) {
     crew -= count;
 }
 
-void Caravan::move() {
-    // TODO MOVER
+bool Caravan::move(int dx, int dy) {
+    x += dx;
+    y += dy;
+    return true;
 }
 
 void Caravan::displayInfo()
 {
-    // TODO DISPLAY INFO
-    cout << "Esta caravana está a mostrar a info\n" << endl;
 }
 
 Caravan* Caravan::duplicate() const

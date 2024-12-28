@@ -21,7 +21,7 @@ public:
     Caravan();
     Caravan(int x, int y, char identifier, int crew, int maxTons = 5);
 
-    virtual void move();
+    virtual bool move(int dx, int dy);
 
     // Get the caravan's name
     char getName();

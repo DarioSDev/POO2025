@@ -8,10 +8,10 @@
 using namespace std;
 
 class MapContentItem {
+    protected:
     int x;
     int y;
     char identifier;
-
 public:
     virtual ~MapContentItem() = default;
     MapContentItem();

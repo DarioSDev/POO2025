@@ -88,10 +88,11 @@ void GameManager::buyCaravan(int city, char type)
 
 }
 
-Caravan * GameManager::findCaravan(int id)
+Caravan * GameManager::findCaravan(char id)
 {
     for (Caravan * c: caravans)
     {
+        printf("-----> %c", c->getIdentifier());
         if (c->getIdentifier() == id)
         {
             return c;
@@ -100,13 +101,9 @@ Caravan * GameManager::findCaravan(int id)
     return nullptr;
 }
 
-bool GameManager::moveCaravan(int id, int dx, int dy)
+bool GameManager::moveCaravan(Caravan* caravan, int dx, int dy)
 {
-    Caravan* aux;
-    if ((aux = findCaravan(id)))
-    {
-        // TODO MOVE LOGIC -> move();
-        aux->move();
+    if(caravan->move(dx, dy)) {
         return true;
     }
     return false;

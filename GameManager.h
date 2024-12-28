@@ -40,8 +40,8 @@ public:
     void setItemDuration(int cd);
     void configGame(string fileName = "config.txt");
     void buyCaravan(int city, char type);
-    Caravan * findCaravan(int id);
-    bool moveCaravan(int id, int dx, int dy);
+    Caravan * findCaravan(char id);
+    bool moveCaravan(Caravan* caravan, int dx, int dy);
 };
 
 

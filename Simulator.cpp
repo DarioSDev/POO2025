@@ -190,10 +190,10 @@ void Simulator::execute() {
             cout << "To be implemented..." << endl;
         }
         else if (command == "move") {
-            int caravanNumber;
+            char caravanId;
             string direction;
 
-            if (!(ss >> caravanNumber)) {
+            if (!(ss >> caravanId)) {
                 cout << "Invalid move command format. Use: move <caravan no.> <direction>\n";
                 continue;
             }
@@ -216,34 +216,51 @@ void Simulator::execute() {
                 continue;
             }
 
-            Caravan *caravan = manager.findCaravan(caravanNumber);
-            if (!caravan) {
-                cout << "Caravan " << caravanNumber << " not found!\n";
-                continue;
-            }
-
             int dx = 0, dy = 0;
             if (direction == "D") { dx = 1; } else if (direction == "E") { dx = -1; } else if (
                 direction == "C") { dy = -1; } else if (direction == "B") { dy = 1; } else if (direction == "CE") {
-                dx = -1;
-                dy = -1;
-            } else if (direction == "CD") {
-                dx = 1;
-                dy = -1;
-            } else if (direction == "BE") {
-                dx = -1;
-                dy = 1;
-            } else if (direction == "BD") {
-                dx = 1;
-                dy = 1;
+                    dx = -1;
+                    dy = -1;
+                } else if (direction == "CD") {
+                    dx = 1;
+                    dy = -1;
+                } else if (direction == "BE") {
+                    dx = -1;
+                    dy = 1;
+                } else if (direction == "BD") {
+                    dx = 1;
+                    dy = 1;
+                }
+
+
+            auto it = find(model.caravanIdentifiers.begin(), model.caravanIdentifiers.end(), caravanId);
+            if (it == model.caravanIdentifiers.end()) {
+                cout << "Caravan " << caravanId << " not found.\n";
+            } else {
+                bool caravanFound = false;
+                for (auto* item : model.map) {
+                    Caravan* caravan = dynamic_cast<Caravan*>(item);
+                    if (caravan) {
+                        if (caravan->getIdentifier() == caravanId) {
+                            caravan->displayInfo();
+                            if (manager.moveCaravan(caravan, dx, dy)) {
+                                cout << "Caravan " << caravanId << " moved to " << direction << ".\n";
+                            } else {
+                                cout << "Caravan " << caravanId << " could not move to " << direction <<
+                                        ". Maybe the destination is not valid?\n";
+                            }
+
+                            caravanFound = true;
+                            break;
+                        }
+                    }
+                }
+                if (!caravanFound) {
+                    cout << "Caravan " << caravanId << " not found in the map.\n";
+                }
             }
 
-            if (manager.moveCaravan(caravan->getIdentifier(), dx, dy)) {
-                cout << "Caravan " << caravanNumber << " moved to " << direction << ".\n";
-            } else {
-                cout << "Caravan " << caravanNumber << " could not move to " << direction <<
-                        ". Maybe the destination is not valid?\n";
-            }
+
         }
         else if (command == "auto") {
             cout << "To be implemented..." << endl;
@@ -276,7 +293,8 @@ void Simulator::execute() {
             cout << "To be implemented..." << endl;
         }
         else if (command == "terminar") {
-            cout << "To be implemented..." << endl;
+            cout << "Pontuação -> 1000\n";
+            initialPhase = true;
         }
         else {
             cout << "Invalid command.\n";
