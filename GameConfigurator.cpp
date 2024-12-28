@@ -69,7 +69,7 @@ void GameConfigurator::readConfigFile(const string& filename) {
                 char content = line[x];
 
                 if (content == '.')
-                    model.map.push_back(new Desert(x, y, content));
+                    model.map.push_back(new Desert(x, y));
                 else if(content == '+')
                     model.map.push_back(new Mountain(x, y));
                 else if(islower(content)) {
@@ -78,13 +78,16 @@ void GameConfigurator::readConfigFile(const string& filename) {
                     model.cityIdentifiers.push_back(city->getIdentifier());
                 }
                 else if (isdigit(content)) {
+                    model.map.push_back(new Desert(x, y));
                     MapContentItem* caravan = new MerchantCaravan(x, y, content, 10);
                     model.map.push_back(caravan);
                     model.caravanIdentifiers.push_back(caravan->getIdentifier());
-
                 }
                 else if (content == '!')
+                {
+                    model.map.push_back(new Desert(x, y));
                     model.map.push_back(new BarbarianCaravan(x, y, content, 10, 10));
+                }
 
                 // TODO FIX crew and AP init above
             }

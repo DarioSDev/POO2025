@@ -7,7 +7,7 @@
 
 Desert::Desert( int x,
                 int y,
-                char identifier = '.') :
-    MapContentItem(x, y, identifier)
+                char identifier) :
+    MapContentItem(x, y, identifier, 'D')
 {
 }

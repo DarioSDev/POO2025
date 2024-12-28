@@ -11,7 +11,7 @@ class Desert : public MapContentItem {
 public:
     Desert( int x,
             int y,
-            char identifier);
+            char identifier = '.');
 
     // TODO POSSIVELMENTE VAMOS TER QUE ADICIONAR ALGO PARA SABER SE ITEM ITEM NO DESERTO
 };

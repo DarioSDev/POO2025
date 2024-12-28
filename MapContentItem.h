@@ -12,10 +12,10 @@ class MapContentItem {
     int x;
     int y;
     char identifier;
+    char type;
 public:
     virtual ~MapContentItem() = default;
-    MapContentItem();
-    MapContentItem(int startX, int startY, char identifier = 'X') : x(startX), y(startY), identifier(identifier){}
+    MapContentItem(int x, int y, char identifier = 'X', char type = 'X');
 
     enum MoveDirection
     {
@@ -26,6 +26,7 @@ public:
     void move(MoveDirection direction);
 
     char getIdentifier();
+    char getType();
     int getX() const;
     int getY() const;
 };

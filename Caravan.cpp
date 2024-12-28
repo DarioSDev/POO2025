@@ -9,11 +9,12 @@ Caravan::Caravan(): MapContentItem(-1,-1), crew(0), maxTons(0) {};
 Caravan::Caravan(   int x,
                     int y,
                     char identifier,
-                    int crew ,
+                    int crew,
                     int maxTons)
                     : MapContentItem(   x,
                                         y,
-                                        identifier),
+                                        identifier,
+                                        'C'),
                                         crew(crew),
                                         maxTons(maxTons) {}
 

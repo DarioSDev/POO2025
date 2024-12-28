@@ -9,6 +9,8 @@
 #include <algorithm>
 #include <fstream>
 
+#include "Desert.h"
+
 Simulator::Simulator()
     : lines(0), columns(0), screen(lines, columns), manager(GameManager()), model(GameModel()), configurator(model) {
     initialPhase = true;
@@ -28,7 +30,21 @@ void Simulator::show() {
     // TODO need to iterate through something besides configurator.model.map && overrides when caravans and cities
     for (MapContentItem * item: configurator.model.map)
     {
-        map[item->getY()][item->getX()] = item->getIdentifier();
+        cout << item->getType();
+        if (item->getType() == 'D' || item->getType() == 'M')
+            map[item->getY()][item->getX()] = item->getIdentifier();
+    }
+
+    for (MapContentItem * item: configurator.model.map)
+    {
+        if (item->getType() == 'C')
+            map[item->getY()][item->getX()] = item->getIdentifier();
+    }
+
+    for (MapContentItem * item: configurator.model.map)
+    {
+        if (item->getType() == 'U')
+            map[item->getY()][item->getX()] = item->getIdentifier();
     }
 
     screen.clear();

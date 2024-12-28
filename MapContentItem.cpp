@@ -4,7 +4,7 @@
 
 #include "MapContentItem.h"
 
-MapContentItem::MapContentItem(): x(-1), y(-1) {}
+MapContentItem::MapContentItem(int x, int y, char identifier, char type): x(x), y(y), identifier(identifier), type(type) {}
 
 void MapContentItem::move(MoveDirection direction) {
     switch (direction) {
@@ -18,6 +18,11 @@ void MapContentItem::move(MoveDirection direction) {
 char MapContentItem::getIdentifier()
 {
     return identifier;
+}
+
+char MapContentItem::getType()
+{
+    return type;
 }
 
 int MapContentItem::getX() const
