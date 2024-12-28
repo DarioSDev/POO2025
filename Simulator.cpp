@@ -171,13 +171,12 @@ void Simulator::execute() {
                             Caravan* caravan = dynamic_cast<Caravan*>(item);
                             if (caravan) {
                                 if (caravan->getIdentifier() == caravanId) {
-                                    cout << "Caravan " << caravanId << " found in the map.\n";
+                                    caravan->displayInfo();
                                     caravanFound = true;
                                     break;
                                 }
                             }
                         }
-
                         if (!caravanFound) {
                             cout << "Caravan " << caravanId << " not found in the map.\n";
                         }
