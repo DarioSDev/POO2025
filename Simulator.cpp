@@ -9,7 +9,6 @@
 #include <algorithm>
 #include <fstream>
 
-#include "Desert.h"
 
 Simulator::Simulator()
     : lines(0), columns(0), screen(lines, columns), manager(GameManager()), model(GameModel()), configurator(model) {
