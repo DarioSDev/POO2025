@@ -14,21 +14,18 @@ Simulator::Simulator()
     initialPhase = true;
     turn = 0;
     setupManager();
-    screen = Buffer(lines, columns);
-    makeMap();
 }
 
 void Simulator::makeMap() {
     map.clear();
-    // Populates ALL as Deserts
     for (int i = 0; i < lines; i++) {
-        string linha(lines, '.');
+        string linha(columns, '.');
         map.push_back(linha);
     }
 }
 
 void Simulator::show() {
-    // TODO need to iterate through something besides configurator.model.map
+    // TODO need to iterate through something besides configurator.model.map && overrides when caravans and cities
     for (MapContentItem * item: configurator.model.map)
     {
         map[item->getY()][item->getX()] = item->getIdentifier();
@@ -66,6 +63,8 @@ void Simulator::execute() {
                     lines = model.lines;
                     columns = model.columns;
                     initialPhase = false;
+                    screen = Buffer(lines, columns);
+                    makeMap();
                 }
             } else {
                 cout << "Error: Missing filename after 'config' command.\n";
@@ -89,6 +88,8 @@ void Simulator::execute() {
         ss >> command;
 
         if (command == "exec") {
+            // TODO REMOVE LATER - JUST FOR TESTING
+            show();
             cout << "To be implemented..." << endl;
         }
         else if (command == "prox") {
