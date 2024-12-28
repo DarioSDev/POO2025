@@ -293,7 +293,7 @@ void Simulator::execute() {
             cout << "To be implemented..." << endl;
         }
         else if (command == "terminar") {
-            cout << "Pontuação -> 1000\n";
+            cout << "Pontuação -> 1000\n";  // TODO dar pontuação
             initialPhase = true;
         }
         else {
