@@ -68,7 +68,7 @@ void Caravan::addCrew(int count) {
 
 void Caravan::removeCrew(int count) {
     if (count > crew) {
-        cout << "Not enough crew to remove!\n";
+        crew = 0;
         return;
     }
     crew -= count;

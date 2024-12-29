@@ -35,8 +35,8 @@ public:
     [[nodiscard]] int getTons() const;
     [[nodiscard]] int getMaxTons() const;
     virtual void displayInfo();
-    void addCrew(int count);
-    void removeCrew(int count);
+    virtual void addCrew(int count);
+    virtual void removeCrew(int count);
     [[nodiscard]] int getCrew() const;
     [[nodiscard]] int getMaxCrew() const;
     [[nodiscard]] virtual Caravan * duplicate() const;

@@ -8,6 +8,10 @@
 #include "Mountain.h" // TODO REMOVER
 #include <algorithm>
 #include <fstream>
+#include <cmath>
+#include <utility>
+#include <ctime>
+#include <vector>
 
 
 Simulator::Simulator()
@@ -52,6 +56,7 @@ void Simulator::show() {
 }
 
 void Simulator::execute() {
+    srand(static_cast<unsigned int>(time(nullptr)));
     string input;
 
     while (initialPhase == true) {
@@ -93,6 +98,64 @@ void Simulator::execute() {
 
     while (initialPhase == false) {
         show();
+
+        vector<Caravan*> barbarianCaravans;
+
+        for (auto *item : model.map) {
+            if (auto *caravan = dynamic_cast<Caravan *>(item)) {
+                if (caravan->getIdentifier() == '!') {
+                    barbarianCaravans.push_back(caravan);
+                }
+            }
+        }
+
+        for (auto *item : model.map) {
+            if (auto *caravan = dynamic_cast<Caravan *>(item)) {
+                if (caravan->getIdentifier() == '!') continue;
+
+                if (isdigit(caravan->getIdentifier())) {
+                    int caravanX = caravan->getX();
+                    int caravanY = caravan->getY();
+
+                    for (auto *barbarian : barbarianCaravans) {
+                        int barbarianX = barbarian->getX();
+                        int barbarianY = barbarian->getY();
+
+                        if ((abs(caravanX - barbarianX) == 1 && caravanY == barbarianY) || (abs(caravanY - barbarianY) == 1 && caravanX == barbarianX)) {
+                            cout << "Caravan at (" << caravanX << ", " << caravanY
+                                  << ") is adjacent to barbarian caravan at ("
+                                  << barbarianX << ", " << barbarianY << ")\n";
+
+                            int barbarianChance = rand() % barbarian->getCrew();
+                            int userChance = rand() % caravan->getCrew();
+                            cout << "User chance: " << userChance << " | crew: " << caravan->getCrew() << endl;
+                            cout << "Barbarian chance: " << barbarianChance << " | crew: " << barbarian->getCrew() << endl;
+                            if (barbarianChance > userChance) {
+                                int loss = ceil(barbarian->getCrew() * 0.2);
+                                barbarian->removeCrew(loss);
+                                caravan->removeCrew(loss*2);
+
+                            } else {
+                                int loss = ceil(caravan->getCrew() * 0.2);
+                                caravan->removeCrew(loss);
+                                barbarian->removeCrew(loss*2);
+                            }
+                            if (caravan->getCrew() <= 0) {
+                                cout << "Caravan " << caravan->getIdentifier() << " destroyed." << endl;
+                                //delete caravan;
+                                //caravan = nullptr;
+                            }
+                            if (barbarian->getCrew() <= 0) {
+                                cout << "Barbarian " << barbarian->getIdentifier() << " destroyed." << endl;
+                                //delete barbarian;
+                                //barbarian = nullptr;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         cout << "Enter command: ";
         getline(cin, input);
         istringstream ss(input);
@@ -544,7 +607,8 @@ void Simulator::execute() {
                 cout << "Invalid command format. Use: dels <bufferName>\n";
             }
         } else if (command == "terminar") {
-            cout << "Pontuação ->" << model.coins << endl;
+            cout << "Simulation Over!" << model.coins << endl;
+            cout << "Turns: " << turn << " | Coins: " << model.coins << endl;
             initialPhase = true;
         } else {
             cout << "Invalid command.\n";
