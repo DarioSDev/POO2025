@@ -16,8 +16,29 @@ Caravan::Caravan(   int x,
                                         identifier,
                                         'C'),
                                         crew(crew),
-                                        maxTons(maxTons) {}
+                                        maxTons(maxTons), cargo (0){}
 
+// Add goods to the caravan
+void Caravan::addCargo(int quantity) {
+    cargo += quantity;
+}
+
+int Caravan::getCargo() {
+    return cargo;
+}
+
+int Caravan::getMaxTons() {
+    return maxTons;
+}
+
+// Remove goods from the caravan
+void Caravan::removeCargo(int quantity) {
+    if ( cargo < quantity) {
+        cout << "Not enough to remove!\n";
+        return;
+    }
+    cargo -= quantity;
+}
 // FIXME GETNADA AND NAME
 // Get the caravan's name
 char Caravan::getName() {

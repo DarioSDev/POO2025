@@ -194,31 +194,76 @@ void Simulator::execute() {
         else if (command == "compra") {
             char caravanId;
             int tons;
+
             if (!(ss >> caravanId >> tons)) {
-                cout << "Invalid compra command format. Use: compra <caravan no.> <merch tons.>\n";
+                cout << "Invalid command format. Use: compra <caravan no.> <merch tons.>\n";
                 continue;
             }
-
-
-
-            auto it = find(model.caravanIdentifiers.begin(), model.caravanIdentifiers.end(), caravanId);
-            if (it == model.caravanIdentifiers.end()) {
+            bool caravanFound = false;
+            for (auto *item : model.map) {
+                Caravan *caravan = dynamic_cast<Caravan *>(item);
+                if (caravan && caravan->getIdentifier() == caravanId) {
+                    caravanFound = true;
+                    bool inCity = false;
+                    for (auto *cityItem : model.map) {
+                        if (cityItem->getType() == 'U') {
+                            City *city = dynamic_cast<City *>(cityItem);
+                            if (city && city->getX() == caravan->getX() && city->getY() == caravan->getY()) {
+                                if (model.coins - (tons * model.merchBuyPrice) >= 0 && (caravan->getMaxTons() - caravan->getCargo()) > tons) {
+                                    caravan->addCargo(tons);
+                                    model.coins -= tons * model.merchBuyPrice;
+                                } else {
+                                    cout << "Not enough space or coins" << endl;
+                                }
+                                inCity = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!inCity) {
+                        cout << "Caravan " << caravanId << " is not in any city.\n";
+                    }
+                    break;
+                }
+            }
+            if (!caravanFound) {
                 cout << "Caravan " << caravanId << " not found.\n";
+            }
+        }
+        else if (command == "vende") {
+            char caravanId;
+
+            if (!(ss >> caravanId)) {
+                cout << "Invalid command format. Use: vende <caravan no.>\n";
                 continue;
             }
-
-
-            for (auto item: model.map)
-            {
-                City * city = dynamic_cast<City *>(item);
-                if ( city && city->getIdentifier() == city->getIdentifier())
-                {
-                    cout << "FOUND CITY WITH ID = " << city->getIdentifier() << endl;
+            bool caravanFound = false;
+            for (auto *item : model.map) {
+                Caravan *caravan = dynamic_cast<Caravan *>(item);
+                if (caravan && caravan->getIdentifier() == caravanId) {
+                    caravanFound = true;
+                    bool inCity = false;
+                    for (auto *cityItem : model.map) {
+                        if (cityItem->getType() == 'U') {
+                            City *city = dynamic_cast<City *>(cityItem);
+                            if (city && city->getX() == caravan->getX() && city->getY() == caravan->getY()) {
+                                model.coins += caravan->getCargo() * model.merchSellPrice;
+                                caravan->removeCargo(caravan->getCargo());
+                                inCity = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!inCity) {
+                        cout << "Caravan " << caravanId << " is not in any city.\n";
+                    }
+                    break;
                 }
             }
 
-        } else if (command == "vende") {
-            cout << "To be implemented..." << endl;
+            if (!caravanFound) {
+                cout << "Caravan " << caravanId << " not found.\n";
+            }
         } else if (command == "move") {
             char caravanId;
             string direction;

@@ -16,15 +16,20 @@ class Caravan : public MapContentItem {
 protected:
     int crew;    // Number of crew members
     const int maxTons;
+    int cargo;
 public:
     // Constructor
     Caravan();
-    Caravan(int x, int y, char identifier, int crew, int maxTons = 5);
+    Caravan(int x, int y, char identifier, int crew, int maxTons = 40);
 
     virtual bool move(int dx, int dy);
 
     // Get the caravan's name
     char getName();
+    int getMaxTons();
+    void addCargo(int quantity);
+    void removeCargo(int quantity);
+    int getCargo();
 
     // Virtual method to display information (polymorphic behavior)
     virtual void displayInfo();

@@ -9,14 +9,11 @@
 
 class MerchantCaravan final : public Caravan {
     // FIXME create custom type
-    map<string, int> goods;
+
 
 public:
     MerchantCaravan(int x, int y, char identifier, int crew);
 
-    void addGoods(const string& item, int quantity);
-
-    void removeGoods(const string& item, int quantity);
 
     // TODO OVERRIDE
     void displayInfo() override;
