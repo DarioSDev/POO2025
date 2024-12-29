@@ -30,7 +30,7 @@ public:
     void show();
     Caravan findCaravan(int caravan_number);
     bool moveCaravan(Caravan caravan, int dx, int dy);
-    void showPrices();
+    void showPrices() const;
     void executeCommand(string cmd);
     void execute();
     void setupManager();

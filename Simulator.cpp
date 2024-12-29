@@ -149,7 +149,7 @@ void Simulator::execute() {
                 cout << "Invalid city identifier. Must be a lowercase letter.\n";
                 continue;
             }
-            auto it = find(model.cityIdentifiers.begin(), model.cityIdentifiers.end(), city);
+            auto it = ranges::find(model.cityIdentifiers.begin(), model.cityIdentifiers.end(), city);
             if (it == model.cityIdentifiers.end()) {
                 cout << "City " << city << " not found.\n";
             } else {
@@ -167,14 +167,13 @@ void Simulator::execute() {
                 if (ss.peek() != EOF) {
                     cout << "Error: Extra input after caravan ID. Use: caravana <caravan no.>" << endl;
                 } else {
-                    auto it = find(model.caravanIdentifiers.begin(), model.caravanIdentifiers.end(), caravanId);
+                    auto it = ranges::find(model.caravanIdentifiers.begin(), model.caravanIdentifiers.end(), caravanId);
                     if (it == model.caravanIdentifiers.end()) {
                         cout << "Caravan " << caravanId << " not found.\n";
                     } else {
                         bool caravanFound = false;
                         for (auto *item: model.map) {
-                            Caravan *caravan = dynamic_cast<Caravan *>(item);
-                            if (caravan) {
+                            if (auto *caravan = dynamic_cast<Caravan *>(item)) {
                                 if (caravan->getIdentifier() == caravanId) {
                                     caravan->displayInfo();
                                     caravanFound = true;
@@ -201,7 +200,7 @@ void Simulator::execute() {
             }
             bool caravanFound = false;
             for (auto *item : model.map) {
-                Caravan *caravan = dynamic_cast<Caravan *>(item);
+                auto *caravan = dynamic_cast<Caravan *>(item);
                 if (caravan && caravan->getIdentifier() == caravanId) {
                     caravanFound = true;
                     bool inCity = false;
@@ -239,7 +238,7 @@ void Simulator::execute() {
             }
             bool caravanFound = false;
             for (auto *item : model.map) {
-                Caravan *caravan = dynamic_cast<Caravan *>(item);
+                auto *caravan = dynamic_cast<Caravan *>(item);
                 if (caravan && caravan->getIdentifier() == caravanId) {
                     caravanFound = true;
                     bool inCity = false;
@@ -307,7 +306,7 @@ void Simulator::execute() {
                 dy = 1;
             }
 
-            auto it = find(model.caravanIdentifiers.begin(), model.caravanIdentifiers.end(), caravanId);
+            auto it = ranges::find(model.caravanIdentifiers.begin(), model.caravanIdentifiers.end(), caravanId);
             if (it == model.caravanIdentifiers.end()) {
                 cout << "Caravan " << caravanId << " not found.\n";
                 continue;
@@ -315,7 +314,7 @@ void Simulator::execute() {
 
             bool caravanFound = false;
             for (auto *item: model.map) {
-                Caravan *caravan = dynamic_cast<Caravan *>(item);
+                auto *caravan = dynamic_cast<Caravan *>(item);
                 if (caravan && caravan->getIdentifier() == caravanId) {
                     if (caravan->getY() == lines - 1 && (direction == "B" || direction == "BE" || direction == "BD")) {
                         dy = -(lines - 1);
@@ -374,13 +373,13 @@ void Simulator::execute() {
                 cout << "Caravan " << caravanId << " not found in the map.\n";
             }
         } else if (command == "auto") {
-            cout << "To be implemented..." << endl;
+            cout << "To be implemented.." << endl;
         } else if (command == "stop") {
-            cout << "To be implemented..." << endl;
+            cout << "To be implemented...." << endl;
         } else if (command == "barbaro") {
-            cout << "To be implemented..." << endl;
+            cout << "To be implemented....." << endl;
         } else if (command == "areia") {
-            cout << "To be implemented..." << endl;
+            cout << "To be implemented......" << endl;
         } else if (command == "moedas") {
             int amount = 0;
             if (ss >> amount) {
@@ -398,7 +397,7 @@ void Simulator::execute() {
                 cout << "Invalid command format. Use: moedas <integer amount>\n";
             }
         } else if (command == "tripul") {
-            cout << "To be implemented..." << endl;
+            cout << "To be implemented......." << endl;
         } else if (command == "saves") {
             string bufferName;
             if (ss >> bufferName) {
@@ -470,7 +469,7 @@ void Simulator::setupManager() {
     manager.setItemDuration(model.itemDuration);
 }
 
-void Simulator::showPrices() {
+void Simulator::showPrices() const {
     cout << "Prices:" << endl;
     cout << "Buy Merch: " << model.merchBuyPrice << endl;
     cout << "Sell Merch: " << model.merchSellPrice << endl;
