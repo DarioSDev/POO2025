@@ -191,13 +191,13 @@ void Simulator::execute() {
                             }
                             caravan->consumeWater();
                             caravan->resetTurn();
-                            checkTurns();
                         }
                     }
                 }
                 for (int i = 0; i < num; i++)
                 {
                     turn ++;
+                    checkTurns();
                     cout << "Turn " << turn << " ends!\n\n";
                 }
             } else if (ss.eof()) {
@@ -713,6 +713,7 @@ void Simulator::populateDesertItems()
         if (auto* desert = dynamic_cast<Desert*>(item))
         {
             desert->setItem(None);
+            deserts.push_back(desert);
         }
     }
 
