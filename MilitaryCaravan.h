@@ -8,7 +8,7 @@
 
 
 class MilitaryCaravan final : public Caravan {
-
+    int turnsWithoutCrew = 0;
 public:
     // Constructor
     MilitaryCaravan(int x, int y, char identifier);
@@ -19,6 +19,8 @@ public:
     MilitaryCaravan* duplicate() const override;
 
     bool consumeWater() override;
+
+    bool move(int dx, int dy) override;
 };
 
 #endif //MILITARYCARAVAN_H

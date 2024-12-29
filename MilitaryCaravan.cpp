@@ -13,7 +13,7 @@ MilitaryCaravan::MilitaryCaravan( int x,
                                         40,
                                         400,
                                         5,
-                                        Auto) {}
+                                        Manual) {}
 
 // TODO override displayInfo to show barbarian caravan details
 void MilitaryCaravan::displayInfo() {
@@ -36,3 +36,28 @@ bool MilitaryCaravan::consumeWater()
         currentWater -= 1;
     return true;
 }
+
+bool MilitaryCaravan::move(int dx, int dy)
+{
+    if (crew == 0)
+    {
+        Caravan::move(1, 1);
+        return true;
+    }
+    if (moveType == Auto)
+    {
+        // TODO HUNT BARBARIANS IN 6 POSITIONS DIFERENCE
+        consumeWater();
+        return true;
+    }
+    if (moveType == Manual)
+    {
+        if (Caravan::move(dx, dy))
+        {
+            consumeWater();
+            return true;
+        }
+    }
+    return false;
+}
+
