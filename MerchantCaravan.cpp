@@ -40,7 +40,6 @@ void MerchantCaravan::consumeWater()
     else
         currentWater -= 1;
     if (currentWater < 0) currentWater = 0;
-    cout << "MerchantCaravan consumed water. Remaining: " << currentWater << " units.\n";
 }
 
 bool MerchantCaravan::move(int dx, int dy)

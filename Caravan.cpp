@@ -123,6 +123,5 @@ int Caravan::getMovesLeft() {
 
 void Caravan::resetTurn() {
     movesThisTurn = 0;
-    cout << "Caravan reset for new turn.\n";
 }
 
