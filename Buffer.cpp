@@ -28,52 +28,6 @@ Buffer::Buffer() {}
 Buffer::~Buffer()
 {
     delete[] buffer;
-    delete[] name;
-}
-
-Buffer::Buffer(const Buffer& other)
-    : lines(other.lines),
-      columns(other.columns),
-      columnPos(other.columnPos),
-      linePos(other.linePos),
-      buffer(new char[other.lines * other.columns]),
-      name(other.name ? strdup(other.name) : nullptr) // Duplicate name
-{
-    // Copy buffer content
-    memcpy(buffer, other.buffer, lines * columns);
-}
-
-Buffer& Buffer::operator=(const Buffer& other)
-{
-    if (this == &other) return *this;
-
-    // Clean up existing resources
-    delete[] buffer;
-    delete[] name;
-
-    // Copy attributes
-    lines = other.lines;
-    columns = other.columns;
-    columnPos = other.columnPos;
-    linePos = other.linePos;
-
-    buffer = new char[lines * columns];
-    memcpy(buffer, other.buffer, lines * columns);
-
-    name = other.name ? strdup(other.name) : nullptr;
-
-    return *this;
-}
-
-void Buffer::setName(char * name)
-{
-    this->name = name;
-    cout << "NEW NAME " << this->name << endl;
-}
-
-const char * Buffer::getName()
-{
-    return name;
 }
 
 

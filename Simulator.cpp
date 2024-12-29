@@ -361,7 +361,8 @@ void Simulator::execute() {
                     cout << "Invalid command format. Use: saves <bufferName>\n";
                     continue;
                 }
-                screen.setName(bufferName.data());
+                // FIXME DONT ERASE
+                //screen.setName(bufferName.data());
 
                 if ( manager.addMemoryBuffer(screen) )
                     cout << "Current Buffer saved with name '" << bufferName << "'." << endl;
@@ -379,7 +380,8 @@ void Simulator::execute() {
                     cout << "Invalid command format. Use: loads <bufferName>\n";
                     continue;
                 }
-                screen.setName(bufferName.data());
+                // FIXME DONT ERASE
+                //screen.setName(bufferName.data());
 
                 if ( !manager.displayBuffer(bufferName) )
                     cout << "Buffer with the name '" << bufferName << "' NOT FOUND, try again!" << endl;
@@ -396,7 +398,8 @@ void Simulator::execute() {
                     cout << "Invalid command format. Use: dels <bufferName>\n";
                     continue;
                 }
-                screen.setName(bufferName.data());
+                // FIXME DONT ERASE
+                //screen.setName(bufferName.data());
 
                 if ( manager.removeMemoryBuffer(bufferName) )
                     cout << "Buffer with name '" << bufferName << "' successfully deleted." << endl;

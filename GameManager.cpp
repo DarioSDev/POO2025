@@ -116,11 +116,12 @@ bool GameManager::moveCaravan(Caravan* caravan, int dx, int dy)
 }
 
 bool GameManager::addMemoryBuffer(Buffer buffer) {
-    if (memoryBuffers.contains(buffer.getName())) {
-        return false;
-    }
+    //if (memoryBuffers.contains(buffer.getName())) {
+    //    return false;
+    //}
 
-    memoryBuffers[buffer.getName()] = buffer;
+    // FIXME DONT ERASE
+    //memoryBuffers[buffer.getName()] = buffer;
     return true;
 }
 
