@@ -112,9 +112,23 @@ void Simulator::execute() {
                     cout << "Invalid number of turns\n";
                     continue;
                 }
+                for (auto *item: model.map) {
+                    if (auto *caravan = dynamic_cast<Caravan *>(item)) {
+                        caravan->consumeWater();
+                        caravan->resetTurn();
+                    }
+                }
                 turn += num;
+                cout << "Turn " << turn << " ends!\n";
             } else if (ss.eof()) {
+                for (auto *item: model.map) {
+                    if (auto *caravan = dynamic_cast<Caravan *>(item)) {
+                        caravan->consumeWater();
+                        caravan->resetTurn();
+                    }
+                }
                 turn++;
+                cout << "Turn " << turn << " ends!\n";
             } else {
                 cout << "Invalid command format. Use: prox <positive number>\n";
             }
@@ -361,8 +375,7 @@ void Simulator::execute() {
                         if (manager.moveCaravan(caravan, dx, dy)) {
                             cout << "Caravan " << caravanId << " moved to " << direction << ".\n";
                         } else {
-                            cout << "Caravan " << caravanId << " could not move to " << direction <<
-                                    ". Maybe the destination is not valid?\n";
+                            cout << "Caravan " << caravanId << " could not move to " << direction << ".\n";
                         }
                     }
 

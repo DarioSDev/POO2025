@@ -28,39 +28,45 @@ MilitaryCaravan* MilitaryCaravan::duplicate() const
     return new MilitaryCaravan(*this);
 }
 
-bool MilitaryCaravan::consumeWater()
+void MilitaryCaravan::consumeWater()
 {
-    if (currentWater <= 0)
-        return false;
     if (crew >= 20)
         currentWater -= 3;
     else
         currentWater -= 1;
-    return true;
+    if (currentWater < 0) currentWater = 0;
+    cout << "MilitaryCaravan consumed water. Remaining: " << currentWater << " units.\n";
+
 }
 
 bool MilitaryCaravan::move(int dx, int dy)
 {
-    if (crew == 0 && turnsWithoutCrew < 7)
-    {
-        Caravan::move(1, 1);
-        turnsWithoutCrew++;
-        return true;
-    }
-    if (moveType == Auto)
-    {
-        // TODO HUNT BARBARIANS IN 6 POSITIONS DIFERENCE
-        consumeWater();
-        return true;
-    }
-    if (moveType == Manual)
-    {
-        if (Caravan::move(dx, dy))
+    if (movesThisTurn < maxMovesPerTurn) {
+        if (crew == 0 && turnsWithoutCrew < 7)
         {
+            Caravan::move(1, 1);
+            movesThisTurn++;
+            turnsWithoutCrew++;
+            return true;
+        }
+        if (moveType == Auto)
+        {
+            // TODO HUNT BARBARIANS IN 6 POSITIONS DIFERENCE
+            movesThisTurn++;
             consumeWater();
             return true;
         }
+        if (moveType == Manual)
+        {
+            if (Caravan::move(dx, dy))
+            {
+                movesThisTurn++;
+                consumeWater();
+                return true;
+            }
+        }
     }
+    cout << "No moves left this turn!\n";
     return false;
 }
 

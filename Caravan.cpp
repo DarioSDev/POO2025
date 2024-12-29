@@ -14,6 +14,7 @@ Caravan::Caravan(   int x,
                     int maxCrew,
                     int waterCapacity,
                     int maxTons,
+                    int maxMovesPerTurn,
                     MoveType moveType)
                     : MapContentItem(   x,
                                         y,
@@ -25,6 +26,8 @@ Caravan::Caravan(   int x,
                                         tons (0),
                                         waterCapacity(waterCapacity),
                                         currentWater(waterCapacity),
+                                        maxMovesPerTurn(maxMovesPerTurn),
+                                        movesThisTurn(0),
                                         moveType(moveType){}
 
 void Caravan::addTons(int quantity) {
@@ -80,9 +83,15 @@ int Caravan::getMaxCrew() const {
 }
 
 bool Caravan::move(int dx, int dy) {
-    x += dx;
-    y += dy;
-    return true;
+    if (movesThisTurn < maxMovesPerTurn) {
+        movesThisTurn++;
+        x += dx;
+        y += dy;
+        cout << "Caravan moved to (" << x << ", " << y << "). Moves left: " << getMovesLeft() << ".\n";
+        return true;
+    }
+    cout << "No moves left this turn!\n";
+    return false;
 }
 
 void Caravan::displayInfo()
@@ -94,9 +103,10 @@ Caravan* Caravan::duplicate() const
     return new Caravan(*this);
 }
 
-bool Caravan::consumeWater()
+void Caravan::consumeWater()
 {
-    return true;
+    currentWater -= 0;
+    if (currentWater < 0) currentWater = 0;
 }
 
 bool Caravan::setMode(const MoveType mode) {
@@ -106,3 +116,13 @@ bool Caravan::setMode(const MoveType mode) {
     moveType = mode;
     return true;
 }
+
+int Caravan::getMovesLeft() {
+    return maxMovesPerTurn - movesThisTurn;
+}
+
+void Caravan::resetTurn() {
+    movesThisTurn = 0;
+    cout << "Caravan reset for new turn.\n";
+}
+

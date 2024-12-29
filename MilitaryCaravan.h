@@ -18,7 +18,7 @@ public:
 
     MilitaryCaravan* duplicate() const override;
 
-    bool consumeWater() override;
+    void consumeWater() override;
 
     bool move(int dx, int dy) override;
 };

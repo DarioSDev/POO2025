@@ -16,6 +16,7 @@ MerchantCaravan::MerchantCaravan(   int x,
                                         20,
                                         200,
                                         40,
+                                        2,
                                         Manual) {}
 
 // FIXME FIX THIS
@@ -32,26 +33,43 @@ MerchantCaravan* MerchantCaravan::duplicate() const
     return new MerchantCaravan(*this);
 }
 
-bool MerchantCaravan::consumeWater()
+void MerchantCaravan::consumeWater()
 {
-    if (currentWater <= 0)
-        return false;
     if (crew > 10)
         currentWater -= 2;
     else
         currentWater -= 1;
-    return true;
+    if (currentWater < 0) currentWater = 0;
+    cout << "MerchantCaravan consumed water. Remaining: " << currentWater << " units.\n";
 }
 
 bool MerchantCaravan::move(int dx, int dy)
 {
-    if (crew == 0 && turnsWithoutCrew < 5)
-    {
-        turnsWithoutCrew++;
-        dx = (rand() % 3) - 1;
-        dy = (rand() % 3) - 1;
-        return Caravan::move(dx, dy);
+    // if (crew == 0 && turnsWithoutCrew < 5)
+    // {
+    //     turnsWithoutCrew++;
+    //     dx = (rand() % 3) - 1;
+    //     dy = (rand() % 3) - 1;
+    //     return Caravan::move(dx, dy);
+    // }
+    //return Caravan::move(dx, dy);
+
+    if (movesThisTurn < maxMovesPerTurn) {
+        if (crew == 0 && turnsWithoutCrew < 5)
+        {
+            movesThisTurn++;
+            turnsWithoutCrew++;
+            dx = (rand() % 3) - 1;
+            dy = (rand() % 3) - 1;
+            return Caravan::move(dx, dy);
+        }
+        movesThisTurn++;
+        x += dx;
+        y += dy;
+        cout << "Caravan moved to (" << x << ", " << y << "). Moves left: " << getMovesLeft() << ".\n";
+        return true;
     }
-    return Caravan::move(dx, dy);
+    cout << "No moves left this turn!\n";
+    return false;
     
 }
