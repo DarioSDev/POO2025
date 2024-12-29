@@ -27,17 +27,17 @@ void Simulator::makeMap() {
 
 void Simulator::show() {
     // TODO need to iterate through something besides configurator.model.map && overrides when caravans and cities
-    for (MapContentItem *item: configurator.model.map) {
+    for (MapContentItem *item: model.map) {
         if (item->getType() == 'D' || item->getType() == 'M')
             map[item->getY()][item->getX()] = item->getIdentifier();
     }
 
-    for (MapContentItem *item: configurator.model.map) {
+    for (MapContentItem *item: model.map) {
         if (item->getType() == 'C')
             map[item->getY()][item->getX()] = item->getIdentifier();
     }
 
-    for (MapContentItem *item: configurator.model.map) {
+    for (MapContentItem *item: model.map) {
         if (item->getType() == 'U')
             map[item->getY()][item->getX()] = item->getIdentifier();
     }
@@ -199,22 +199,23 @@ void Simulator::execute() {
                 continue;
             }
 
+
+
             auto it = find(model.caravanIdentifiers.begin(), model.caravanIdentifiers.end(), caravanId);
             if (it == model.caravanIdentifiers.end()) {
                 cout << "Caravan " << caravanId << " not found.\n";
                 continue;
             }
 
-            for (auto *item: model.map)
+
+            for (auto item: model.map)
             {
-                MapContentItem *caravan = dynamic_cast<MapContentItem *>(item);
-                if (caravan && caravan->getIdentifier() == caravanId)
+                City * city = dynamic_cast<City *>(item);
+                if ( city && city->getIdentifier() == city->getIdentifier())
                 {
-                    cout << "ADSDADA1 " << caravan->getX() << " " << caravan->getY() << endl;
-                    cout << "ADSDADA1 " << item->getType() << endl;
+                    cout << "FOUND CITY WITH ID = " << city->getIdentifier() << endl;
                 }
             }
-
 
         } else if (command == "vende") {
             cout << "To be implemented..." << endl;

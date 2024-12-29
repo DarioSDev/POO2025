@@ -57,11 +57,9 @@ Buffer& Buffer::operator=(const Buffer& other)
     columnPos = other.columnPos;
     linePos = other.linePos;
 
-    // Allocate and copy buffer
     buffer = new char[lines * columns];
     memcpy(buffer, other.buffer, lines * columns);
 
-    // Copy name
     name = other.name ? strdup(other.name) : nullptr;
 
     return *this;
