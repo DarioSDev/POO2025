@@ -35,7 +35,7 @@ public:
     void execute();
     void setupManager();
     void checkTurns();
-
+    void populateDesertItems();
 };
 
 #endif //SIMULADOR_H

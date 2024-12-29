@@ -36,4 +36,6 @@ add_executable(TP main.cpp
         MoveType.h
         MilitaryCaravan.cpp
         MilitaryCaravan.h
+        Item.cpp
+        Item.h
 )

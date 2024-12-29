@@ -5,15 +5,18 @@
 #ifndef DESERT_H
 #define DESERT_H
 #include "Caravan.h"
+#include "Item.h"
 #include "MapContentItem.h"
 
-class Desert : public MapContentItem {
+class Desert final : public MapContentItem {
+    Item item = None;
 public:
     Desert( int x,
             int y,
             char identifier = '.');
 
-    // TODO POSSIVELMENTE VAMOS TER QUE ADICIONAR ALGO PARA SABER SE ITEM ITEM NO DESERTO
+    Item getItem();
+    bool setItem(Item item);
 };
 
 #endif //DESERT_H

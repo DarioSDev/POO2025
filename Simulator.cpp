@@ -85,6 +85,7 @@ void Simulator::execute() {
                     manager.setCoins(model.coins);
                     initialPhase = false;
                     screen = Buffer(lines, columns);
+                    populateDesertItems();
                     makeMap();
                 }
             } else {
@@ -190,12 +191,15 @@ void Simulator::execute() {
                             }
                             caravan->consumeWater();
                             caravan->resetTurn();
-                            turn ++;
                             checkTurns();
                         }
                     }
                 }
-                cout << "Turn " << turn << " ends!\n\n";
+                for (int i = 0; i < num; i++)
+                {
+                    turn ++;
+                    cout << "Turn " << turn << " ends!\n\n";
+                }
             } else if (ss.eof()) {
                 for (auto *item: model.map) {
                     if (auto *caravan = dynamic_cast<Caravan *>(item)) {
@@ -692,4 +696,38 @@ void Simulator::checkTurns()
             cout << "No deserts available to spawn a Barbarian Caravan.\n";
         }
     }
+
+    if (turn % model.turnsBetweenNewItems == 0)
+    {
+        populateDesertItems();
+    }
 }
+
+
+void Simulator::populateDesertItems()
+{
+    vector<Desert*> deserts;
+
+    for (auto* item : model.map)
+    {
+        if (auto* desert = dynamic_cast<Desert*>(item))
+        {
+            desert->setItem(None);
+        }
+    }
+
+    random_device rd;
+    default_random_engine rng(rd());
+    shuffle(deserts.begin(), deserts.end(), rng);
+
+    int itemsToAssign = std::min(model.maxItems, static_cast<int>(deserts.size()));
+    for (int i = 0; i < itemsToAssign; ++i)
+    {
+        Item randItem = randomItem();
+        deserts[i]->setItem(randItem);
+
+        cout << "Assigned " << itemTypeToString(randItem)
+             << " to desert at (" << deserts[i]->getX() << ", " << deserts[i]->getY() << ")\n";
+    }
+}
+

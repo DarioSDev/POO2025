@@ -31,6 +31,5 @@ BarbarianCaravan* BarbarianCaravan::duplicate() const
 
 int BarbarianCaravan::incTurnsPlayed()
 {
-    cout << "turnsPlayed " << turnsPlayed << endl;
     return ++turnsPlayed;
 }

@@ -11,3 +11,16 @@ Desert::Desert( int x,
     MapContentItem(x, y, identifier, 'D')
 {
 }
+
+Item Desert::getItem()
+{
+    return item;
+}
+
+bool Desert::setItem(Item item)
+{
+    if (this->item != None)
+        return false;
+    this->item = item;
+}
+
