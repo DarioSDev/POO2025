@@ -34,6 +34,8 @@ public:
     void executeCommand(string cmd);
     void execute();
     void setupManager();
+    void checkTurns();
+
 };
 
 #endif //SIMULADOR_H

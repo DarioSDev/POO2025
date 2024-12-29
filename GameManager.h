@@ -50,6 +50,4 @@ public:
     pair<int, int> moveToClosestCaravan(Caravan* caravan, const vector<MapContentItem*>& map);
 };
 
-
-
 #endif //GAMEMANAGER_H

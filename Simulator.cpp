@@ -13,6 +13,9 @@
 #include <ctime>
 #include <vector>
 
+#include "BarbarianCaravan.h"
+#include "Desert.h"
+
 
 Simulator::Simulator()
     : lines(0), columns(0), screen(lines, columns), manager(GameManager()), model(GameModel()), configurator(model) {
@@ -187,11 +190,12 @@ void Simulator::execute() {
                             }
                             caravan->consumeWater();
                             caravan->resetTurn();
+                            turn ++;
+                            checkTurns();
                         }
                     }
                 }
                 cout << "Turn " << turn << " ends!\n\n";
-                turn += num;
             } else if (ss.eof()) {
                 for (auto *item: model.map) {
                     if (auto *caravan = dynamic_cast<Caravan *>(item)) {
@@ -206,6 +210,7 @@ void Simulator::execute() {
                 }
                 cout << "Turn " << turn << " ends!\n\n";
                 turn++;
+                checkTurns();
             } else {
                 cout << "Invalid command format. Use: prox <positive number>\n";
             }
@@ -641,4 +646,50 @@ void Simulator::showPrices() const {
     cout << "Buy Merch: " << model.merchBuyPrice << endl;
     cout << "Sell Merch: " << model.merchSellPrice << endl;
     cout << "Buy Caravan: " << model.caravanPrice << endl;
+}
+
+void Simulator::checkTurns()
+{
+    vector<MapContentItem *>::iterator it = model.map.begin();
+    while (it != model.map.end())
+    {
+        if (auto* barbarianCaravan = dynamic_cast<BarbarianCaravan *>(*it))
+        {
+            if (barbarianCaravan->incTurnsPlayed() % model.barbariansDuration == 0)
+            {
+                cout << "Barbarian Carvan deleted at [" << barbarianCaravan->getX() << "][" << barbarianCaravan->getY() << "]" << endl;
+
+                it = model.map.erase(it);
+                continue;
+            }
+        }
+        ++it;
+    }
+
+    if (turn % model.turnsBetweenNewBarbarians == 0)
+    {
+        vector<Desert*> deserts;
+        for (auto* item : model.map) {
+            if (auto* desert = dynamic_cast<Desert*>(item)) {
+                deserts.push_back(desert);
+            }
+        }
+
+        if (!deserts.empty()) {
+            bool seeded = false;
+            if (!seeded) {
+                srand(static_cast<unsigned>(time(0)));
+                seeded = true;
+            }
+
+            int randomIndex = rand() % deserts.size();
+
+            model.map.push_back(new BarbarianCaravan(   deserts[randomIndex]->getX(),
+                                                        deserts[randomIndex]->getY(), '!'));
+
+            cout << "A new Barbarian Caravan appears! t (" << deserts[randomIndex]->getX() << ", " << deserts[randomIndex]->getY() << ")\n";
+        } else {
+            cout << "No deserts available to spawn a Barbarian Caravan.\n";
+        }
+    }
 }

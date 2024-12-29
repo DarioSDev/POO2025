@@ -179,3 +179,5 @@ pair<int, int> GameManager::moveToClosestCaravan(Caravan* caravan, const vector<
     }
     return direction;
 }
+
+

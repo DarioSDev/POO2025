@@ -28,3 +28,9 @@ BarbarianCaravan* BarbarianCaravan::duplicate() const
 {
     return new BarbarianCaravan(*this);
 }
+
+int BarbarianCaravan::incTurnsPlayed()
+{
+    cout << "turnsPlayed " << turnsPlayed << endl;
+    return ++turnsPlayed;
+}

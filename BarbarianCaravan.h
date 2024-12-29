@@ -7,7 +7,7 @@
 #include "Caravan.h"
 
 class BarbarianCaravan final : public Caravan {
-
+    int turnsPlayed = 0;
 public:
     // Constructor
     BarbarianCaravan(int x, int y, char identifier);
@@ -16,6 +16,8 @@ public:
     void displayInfo() override;
 
     BarbarianCaravan* duplicate() const override;
+
+    int incTurnsPlayed();
 };
 
 #endif //BARBARIANCARAVAN_H

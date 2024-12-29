@@ -108,6 +108,8 @@ void GameConfigurator::readConfigFile(const string& filename) {
         else if (key == "preço_venda_mercadoria") model.merchSellPrice = value;
         else if (key == "preço_compra_mercadoria") model.merchBuyPrice = value;
         else if (key == "preço_caravana") model.caravanPrice = value;
+        else if (key == "instantes_entre_novos_barbaros") model.turnsBetweenNewBarbarians = value;
+        else if (key == "duração_barbaros") model.barbariansDuration = value;
     }
 
     file.close();
@@ -131,5 +133,7 @@ void GameConfigurator::displayConfig() const {
     cout << "Preco de venda da mercadoria: " << model.merchSellPrice << "\n";
     cout << "Preco de compra da mercadoria: " << model.merchBuyPrice << "\n";
     cout << "Preco da caravana: " << model.caravanPrice << "\n";
+    cout << "Intante entre novos barbaros: " << model.turnsBetweenNewBarbarians << endl;
+    cout << "Duração de bárbaros: " << model.barbariansDuration << endl ;
     cout << "\n\n";
 }
