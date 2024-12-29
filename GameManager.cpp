@@ -7,6 +7,7 @@
 
 #include "BarbarianCaravan.h"
 #include "Buffer.h"
+#include "MilitaryCaravan.h"
 #include "SecretCaravan.h"
 
 GameManager::GameManager(int coins):
@@ -148,3 +149,33 @@ bool GameManager::displayBuffer(string name)
     return false;
 }
 
+pair<int, int> GameManager::moveToClosestCaravan(Caravan* caravan, const vector<MapContentItem*>& map) {
+    const int caravanX = caravan->getX();
+    const int caravanY = caravan->getY();
+    int range = 6;
+    int minRange = 1;
+    pair direction = {0, 0};
+
+    for (auto* item : map) {
+        Caravan* target = nullptr;
+        if (auto* merchant = dynamic_cast<MerchantCaravan*>(item)) {
+            target = merchant;
+        } else if (auto* military = dynamic_cast<MilitaryCaravan*>(item)) {
+            target = military;
+        }
+        if (target && target->getIdentifier() != caravan->getIdentifier()) {
+            int targetX = target->getX();
+            int targetY = target->getY();
+
+            int distance = abs(caravanX - targetX) + abs(caravanY - targetY);
+            if (distance < range && distance > minRange) {
+                range = distance;
+                if (caravanX < targetX) direction = {1, 0};
+                else if (caravanX > targetX) direction = {-1, 0};
+                else if (caravanY < targetY) direction = {0, 1};
+                else if (caravanY > targetY) direction = {0, -1};
+            }
+        }
+    }
+    return direction;
+}

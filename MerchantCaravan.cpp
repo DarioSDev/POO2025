@@ -44,15 +44,6 @@ void MerchantCaravan::consumeWater()
 
 bool MerchantCaravan::move(int dx, int dy)
 {
-    // if (crew == 0 && turnsWithoutCrew < 5)
-    // {
-    //     turnsWithoutCrew++;
-    //     dx = (rand() % 3) - 1;
-    //     dy = (rand() % 3) - 1;
-    //     return Caravan::move(dx, dy);
-    // }
-    //return Caravan::move(dx, dy);
-
     if (movesThisTurn < maxMovesPerTurn) {
         if (crew == 0 && turnsWithoutCrew < 5)
         {
@@ -70,5 +61,4 @@ bool MerchantCaravan::move(int dx, int dy)
     }
     cout << "No moves left this turn!\n";
     return false;
-    
 }

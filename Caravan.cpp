@@ -125,3 +125,7 @@ void Caravan::resetTurn() {
     movesThisTurn = 0;
 }
 
+MoveType Caravan::getMode()
+{
+    return moveType;
+}
