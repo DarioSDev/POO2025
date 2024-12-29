@@ -16,11 +16,11 @@ using namespace std;
 class Caravan : public MapContentItem {
 protected:
     int crew;
-    int maxCrew;
+    int maxCrew{};
     const int maxTons;
-    int tons;
+    int tons{};
     const int waterCapacity;
-    int currentWater;
+    int currentWater{};
     MoveType moveType;
 
 public:
@@ -32,13 +32,13 @@ public:
     char getName();
     void addTons(int quantity);
     void removeTons(int quantity);
-    int getTons();
-    int getMaxTons();
+    int getTons() const;
+    int getMaxTons() const;
     virtual void displayInfo();
     void addCrew(int count);
     void removeCrew(int count);
-    int getCrew();
-    int getMaxCrew();
+    int getCrew() const;
+    int getMaxCrew() const;
     virtual Caravan * duplicate() const;
     virtual bool consumeWater();
     bool setMode(MoveType mode);

@@ -4,7 +4,7 @@
 
 #include "Caravan.h"
 
-Caravan::Caravan(): MapContentItem(-1,-1), crew(0), maxTons(0), waterCapacity(200) {};
+Caravan::Caravan(): MapContentItem(-1,-1), crew(0), maxTons(0), waterCapacity(200), moveType(Manual) {};
 
 Caravan::Caravan(   int x,
                     int y,
@@ -38,11 +38,11 @@ void Caravan::removeTons(int quantity) {
     tons -= quantity;
 }
 
-int Caravan::getTons() {
+int Caravan::getTons() const {
     return tons;
 }
 
-int Caravan::getMaxTons() {
+int Caravan::getMaxTons() const {
     return maxTons;
 }
 
@@ -70,11 +70,11 @@ void Caravan::removeCrew(int count) {
     crew -= count;
 }
 
-int Caravan::getCrew() {
+int Caravan::getCrew() const {
     return crew;
 }
 
-int Caravan::getMaxCrew() {
+int Caravan::getMaxCrew() const {
     return maxCrew;
 }
 
