@@ -41,6 +41,7 @@ public:
     int getMaxCrew();
     virtual Caravan * duplicate() const;
     virtual bool consumeWater();
+    bool setMode(MoveType mode);
 };
 
 #endif //CARAVAN_H

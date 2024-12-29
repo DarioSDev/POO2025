@@ -97,3 +97,11 @@ bool Caravan::consumeWater()
 {
     return true;
 }
+
+bool Caravan::setMode(const MoveType mode) {
+    if (mode != Manual && mode != Auto) {
+        return false;
+    }
+    moveType = mode;
+    return true;
+}

@@ -375,9 +375,51 @@ void Simulator::execute() {
                 cout << "Caravan " << caravanId << " not found in the map.\n";
             }
         } else if (command == "auto") {
-            cout << "To be implemented.." << endl;
+            char caravanId;
+
+            if (!(ss >> caravanId)) {
+                cout << "Invalid command format. Use: auto <caravan no.>\n";
+                continue;
+            }
+            auto it = ranges::find(model.caravanIdentifiers.begin(), model.caravanIdentifiers.end(), caravanId);
+            if (it == model.caravanIdentifiers.end()) {
+                cout << "Caravan " << caravanId << " not found.\n";
+                continue;
+            }
+
+            for (auto *item: model.map) {
+                auto *caravan = dynamic_cast<Caravan *>(item);
+                if (caravan && caravan->getIdentifier() == caravanId) {
+                    if(caravan->setMode(Auto)) {
+                        cout << "Caravan " << caravanId << " set to Auto.\n";
+                    } else {
+                        cout << "Caravan " << caravanId << " could not set to Auto.\n";
+                    }
+                }
+            }
         } else if (command == "stop") {
-            cout << "To be implemented...." << endl;
+            char caravanId;
+
+            if (!(ss >> caravanId)) {
+                cout << "Invalid command format. Use: stop <caravan no.>\n";
+                continue;
+            }
+            auto it = ranges::find(model.caravanIdentifiers.begin(), model.caravanIdentifiers.end(), caravanId);
+            if (it == model.caravanIdentifiers.end()) {
+                cout << "Caravan " << caravanId << " not found.\n";
+                continue;
+            }
+
+            for (auto *item: model.map) {
+                auto *caravan = dynamic_cast<Caravan *>(item);
+                if (caravan && caravan->getIdentifier() == caravanId) {
+                    if(caravan->setMode(Manual)) {
+                        cout << "Caravan " << caravanId << " set to Manual.\n";
+                    } else {
+                        cout << "Caravan " << caravanId << " could not set to Manual.\n";
+                    }
+                }
+            }
         } else if (command == "barbaro") {
             cout << "To be implemented....." << endl;
         } else if (command == "areia") {
