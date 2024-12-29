@@ -32,4 +32,8 @@ add_executable(TP main.cpp
         Desert.h
         SecretCaravan.cpp
         SecretCaravan.h
+        MoveType.cpp
+        MoveType.h
+        MilitaryCaravan.cpp
+        MilitaryCaravan.h
 )

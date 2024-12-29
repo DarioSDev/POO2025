@@ -10,13 +10,16 @@ Caravan::Caravan(   int x,
                     int y,
                     char identifier,
                     int crew,
-                    int maxTons)
+                    int maxTons,
+                    MoveType moveType)
                     : MapContentItem(   x,
                                         y,
                                         identifier,
                                         'C'),
                                         crew(crew),
-                                        maxTons(maxTons), cargo (0){}
+                                        maxTons(maxTons),
+                                        cargo (0),
+                                        moveType(moveType){}
 
 // Add goods to the caravan
 void Caravan::addCargo(int quantity) {

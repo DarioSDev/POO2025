@@ -86,7 +86,7 @@ void GameConfigurator::readConfigFile(const string& filename) {
                 else if (content == '!')
                 {
                     model.map.push_back(new Desert(x, y));
-                    model.map.push_back(new BarbarianCaravan(x, y, content, 10, 10));
+                    model.map.push_back(new BarbarianCaravan(x, y, content));
                 }
 
                 // TODO FIX crew and AP init above

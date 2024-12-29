@@ -87,7 +87,7 @@ void GameManager::buyCaravan(int city, char type)
     if (type == 'C')
         caravans.push_back(new MerchantCaravan(0, 0, '9', 10));
     if (type == 'M')
-        caravans.push_back(new BarbarianCaravan(0,0,'!', 5, 5));
+        caravans.push_back(new BarbarianCaravan(0,0,'!'));
     if (type == 'S')
         caravans.push_back(new SecretCaravan(0, 0, '9', 0));
     cout << "Caravan bought in city " << city << " of type " << type << ".\n";

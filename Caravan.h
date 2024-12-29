@@ -9,6 +9,7 @@
 #include <unordered_map>
 #include <iostream>
 #include "MapContentItem.h"
+#include "MoveType.h"
 
 using namespace std;
 
@@ -17,10 +18,12 @@ protected:
     int crew;    // Number of crew members
     const int maxTons;
     int cargo;
+    MoveType moveType;
+
 public:
     // Constructor
     Caravan();
-    Caravan(int x, int y, char identifier, int crew, int maxTons = 40);
+    Caravan(int x, int y, char identifier, int crew, int maxTons = 40, MoveType moveType = Manual);
 
     virtual bool move(int dx, int dy);
 

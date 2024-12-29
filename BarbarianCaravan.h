@@ -7,11 +7,10 @@
 #include "Caravan.h"
 
 class BarbarianCaravan final : public Caravan {
-    int attackPower;
 
 public:
     // Constructor
-    BarbarianCaravan(int x, int y, char identifier, int crew, int attackPower);
+    BarbarianCaravan(int x, int y, char identifier);
 
     // TODO Override displayInfo to show specific details
     void displayInfo() override;

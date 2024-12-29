@@ -1,26 +1,26 @@
 //
-// Created by Correia, Jose Bastos on 08/12/2024.
+// Created by Correia, Jose Bastos on 29/12/2024.
 //
 
-#include "BarbarianCaravan.h"
+#include "MilitaryCaravan.h"
 
-BarbarianCaravan::BarbarianCaravan( int x,
+MilitaryCaravan::MilitaryCaravan( int x,
                                     int y,
                                     char identifier)
                                     : Caravan(x,
                                         y,
                                         identifier,
                                         40,
-                                        0,
+                                        5,
                                         Auto) {}
 
 // TODO override displayInfo to show barbarian caravan details
-void BarbarianCaravan::displayInfo() {
+void MilitaryCaravan::displayInfo() {
     cout << "Barbarian Caravan\n"
          << "Name: " << getName() << "\nCrew: " << crew << "."<< endl;
 }
 
-BarbarianCaravan* BarbarianCaravan::duplicate() const
+MilitaryCaravan* MilitaryCaravan::duplicate() const
 {
-    return new BarbarianCaravan(*this);
+    return new MilitaryCaravan(*this);
 }
