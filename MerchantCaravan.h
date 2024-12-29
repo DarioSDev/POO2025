@@ -9,7 +9,7 @@
 
 class MerchantCaravan final : public Caravan {
     // FIXME create custom type
-
+    int turnsWithoutCrew = 0;
 
 public:
     MerchantCaravan(int x, int y, char identifier, int crew);
@@ -21,6 +21,8 @@ public:
     MerchantCaravan* duplicate() const override;
 
     bool consumeWater() override;
+
+    bool move(int dx, int dy) override;
 };
 
 

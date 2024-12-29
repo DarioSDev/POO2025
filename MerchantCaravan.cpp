@@ -34,3 +34,16 @@ bool MerchantCaravan::consumeWater()
         currentWater -= 1;
     return true;
 }
+
+bool MerchantCaravan::move(int dx, int dy)
+{
+    if (crew == 0 && turnsWithoutCrew < 5)
+    {
+        turnsWithoutCrew++;
+        dx = (rand() % 3) - 1;
+        dy = (rand() % 3) - 1;
+        return Caravan::move(dx, dy);
+    }
+    return Caravan::move(dx, dy);
+    
+}

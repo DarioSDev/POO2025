@@ -39,9 +39,10 @@ bool MilitaryCaravan::consumeWater()
 
 bool MilitaryCaravan::move(int dx, int dy)
 {
-    if (crew == 0)
+    if (crew == 0 && turnsWithoutCrew < 7)
     {
         Caravan::move(1, 1);
+        turnsWithoutCrew++;
         return true;
     }
     if (moveType == Auto)
