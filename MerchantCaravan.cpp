@@ -7,15 +7,22 @@
 MerchantCaravan::MerchantCaravan(   int x,
                                     int y,
                                     char identifier,
-                                    int crew)
-                                    : Caravan(x, y, identifier, crew, 200, 40) {}
+                                    int crew = 10)
+                                    : Caravan(x,
+                                        y,
+                                        identifier,
+                                        crew,
+                                        20,
+                                        200,
+                                        40,
+                                        Manual) {}
 
 // FIXME FIX THIS
 // Override displayInfo to show details about the merchant caravan
 void MerchantCaravan::displayInfo() {
     cout << "Merchant Caravan\n"
          << "Name: " << getName() << "\nCrew: " << crew
-         << "\nGoods: " << cargo << "\n";
+         << "\nGoods: " << tons << "\n";
 
 }
 

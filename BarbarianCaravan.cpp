@@ -7,12 +7,14 @@
 BarbarianCaravan::BarbarianCaravan( int x,
                                     int y,
                                     char identifier)
-                                    : Caravan(x,
-                                        y,
-                                        identifier,
-                                        40,
-                                        0,
-                                        Auto) {}
+                                    : Caravan(  x,
+                                                y,
+                                                identifier,
+                                                40,
+                                                40,
+                                                0,
+                                                0,
+                                                Manual) {}
 
 // TODO override displayInfo to show barbarian caravan details
 void BarbarianCaravan::displayInfo() {

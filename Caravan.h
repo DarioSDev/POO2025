@@ -15,9 +15,10 @@ using namespace std;
 
 class Caravan : public MapContentItem {
 protected:
-    int crew;    // Number of crew members
+    int crew;
+    int maxCrew;
     const int maxTons;
-    int cargo;
+    int tons;
     const int waterCapacity;
     int currentWater;
     MoveType moveType;
@@ -25,28 +26,20 @@ protected:
 public:
     // Constructor
     Caravan();
-    Caravan(int x, int y, char identifier, int crew, int waterCapacity, int maxTons = 40, MoveType moveType = Manual);
+    Caravan(int x, int y, char identifier, int crew, int maxCrew, int waterCapacity, int maxTons, MoveType moveType = Manual);
 
     virtual bool move(int dx, int dy);
-
-    // Get the caravan's name
     char getName();
+    void addTons(int quantity);
+    void removeTons(int quantity);
+    int getTons();
     int getMaxTons();
-    void addCargo(int quantity);
-    void removeCargo(int quantity);
-    int getCargo();
-
-    // Virtual method to display information (polymorphic behavior)
     virtual void displayInfo();
-
-    // Add crew members
     void addCrew(int count);
-
-    // Remove crew members
     void removeCrew(int count);
-
+    int getCrew();
+    int getMaxCrew();
     virtual Caravan * duplicate() const;
-
     virtual bool consumeWater();
 };
 

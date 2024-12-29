@@ -10,7 +10,7 @@
 class SecretCaravan final: public Caravan{
 
 public:
-    SecretCaravan(int x, int y, char identifier, int crew);
+    SecretCaravan(int x, int y, char identifier);
 
     SecretCaravan* duplicate() const override;
 };

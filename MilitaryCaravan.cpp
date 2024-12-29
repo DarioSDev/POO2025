@@ -4,12 +4,13 @@
 
 #include "MilitaryCaravan.h"
 
-MilitaryCaravan::MilitaryCaravan( int x,
+MilitaryCaravan::MilitaryCaravan(   int x,
                                     int y,
                                     char identifier)
                                     : Caravan(x,
                                         y,
                                         identifier,
+                                        20,
                                         40,
                                         400,
                                         5,

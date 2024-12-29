@@ -10,6 +10,7 @@ Caravan::Caravan(   int x,
                     int y,
                     char identifier,
                     int crew,
+                    int maxCrew,
                     int waterCapacity,
                     int maxTons,
                     MoveType moveType)
@@ -18,33 +19,33 @@ Caravan::Caravan(   int x,
                                         identifier,
                                         'C'),
                                         crew(crew),
+                                        maxCrew(maxCrew),
                                         maxTons(maxTons),
-                                        cargo (0),
+                                        tons (0),
                                         waterCapacity(waterCapacity),
                                         currentWater(waterCapacity),
                                         moveType(moveType){}
 
-// Add goods to the caravan
-void Caravan::addCargo(int quantity) {
-    cargo += quantity;
+void Caravan::addTons(int quantity) {
+    tons += quantity;
 }
 
-int Caravan::getCargo() {
-    return cargo;
+void Caravan::removeTons(int quantity) {
+    if ( tons < quantity) {
+        cout << "Not enough to remove!\n";
+        return;
+    }
+    tons -= quantity;
+}
+
+int Caravan::getTons() {
+    return tons;
 }
 
 int Caravan::getMaxTons() {
     return maxTons;
 }
 
-// Remove goods from the caravan
-void Caravan::removeCargo(int quantity) {
-    if ( cargo < quantity) {
-        cout << "Not enough to remove!\n";
-        return;
-    }
-    cargo -= quantity;
-}
 // FIXME GETNADA AND NAME
 // Get the caravan's name
 char Caravan::getName() {
@@ -57,18 +58,24 @@ char Caravan::getName() {
 //    cout << "Caravan Name: " << name << "\nCrew: " << crew << endl;
 //}
 
-// Add crew members
 void Caravan::addCrew(int count) {
     crew += count;
 }
 
-// Remove crew members
 void Caravan::removeCrew(int count) {
     if (count > crew) {
         cout << "Not enough crew to remove!\n";
         return;
     }
     crew -= count;
+}
+
+int Caravan::getCrew() {
+    return crew;
+}
+
+int Caravan::getMaxCrew() {
+    return maxCrew;
 }
 
 bool Caravan::move(int dx, int dy) {

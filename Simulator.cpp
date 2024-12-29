@@ -208,11 +208,12 @@ void Simulator::execute() {
                         if (cityItem->getType() == 'U') {
                             City *city = dynamic_cast<City *>(cityItem);
                             if (city && city->getX() == caravan->getX() && city->getY() == caravan->getY()) {
-                                if (model.coins - (tons * model.merchBuyPrice) >= 0 && (caravan->getMaxTons() - caravan->getCargo()) > tons) {
-                                    caravan->addCargo(tons);
+                                if (model.coins - (tons * model.merchBuyPrice) >= 0 && (caravan->getMaxTons() - caravan->getTons()) >= tons) {
+                                    caravan->addTons(tons);
                                     model.coins -= tons * model.merchBuyPrice;
+                                    cout << "Success! Coins: " << model.coins << " | Merch: " << caravan->getTons() << " tons!" << endl;
                                 } else {
-                                    cout << "Not enough space or coins" << endl;
+                                    cout << "Not enough space for merch or coins" << endl;
                                 }
                                 inCity = true;
                                 break;
@@ -246,8 +247,9 @@ void Simulator::execute() {
                         if (cityItem->getType() == 'U') {
                             City *city = dynamic_cast<City *>(cityItem);
                             if (city && city->getX() == caravan->getX() && city->getY() == caravan->getY()) {
-                                model.coins += caravan->getCargo() * model.merchSellPrice;
-                                caravan->removeCargo(caravan->getCargo());
+                                model.coins += caravan->getTons() * model.merchSellPrice;
+                                caravan->removeTons(caravan->getTons());
+                                cout << "Success! Coins: " << model.coins << " | Merch: " << caravan->getTons() << " tons!" << endl;
                                 inCity = true;
                                 break;
                             }
@@ -397,7 +399,45 @@ void Simulator::execute() {
                 cout << "Invalid command format. Use: moedas <integer amount>\n";
             }
         } else if (command == "tripul") {
-            cout << "To be implemented......." << endl;
+            char caravanId;
+            int crew;
+
+            if (!(ss >> caravanId >> crew)) {
+                cout << "Invalid command format. Use: tripul <caravan no.> <crew>\n";
+                continue;
+            }
+            bool caravanFound = false;
+            for (auto *item : model.map) {
+                auto *caravan = dynamic_cast<Caravan *>(item);
+                if (caravan && caravan->getIdentifier() == caravanId) {
+                    caravanFound = true;
+                    bool inCity = false;
+                    for (auto *cityItem : model.map) {
+                        if (cityItem->getType() == 'U') {
+                            City *city = dynamic_cast<City *>(cityItem);
+                            if (city && city->getX() == caravan->getX() && city->getY() == caravan->getY()) {
+                                if (model.coins - crew >= 0 && (caravan->getMaxCrew() - caravan->getCrew()) >= crew) {
+                                    caravan->addCrew(crew);
+                                    model.coins -= crew;
+                                    cout << "Success! Coins: " << model.coins << " | Crew: " << caravan->getCrew() << endl;
+                                } else {
+                                    cout << "Not enough space for crew or coins" << endl;
+                                }
+                                inCity = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!inCity) {
+                        cout << "Caravan " << caravanId << " is not in any city.\n";
+                    }
+                    break;
+                }
+            }
+            if (!caravanFound) {
+                cout << "Caravan " << caravanId << " not found.\n";
+            }
+
         } else if (command == "saves") {
             string bufferName;
             if (ss >> bufferName) {

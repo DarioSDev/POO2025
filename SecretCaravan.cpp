@@ -6,14 +6,15 @@
 
 SecretCaravan::SecretCaravan(   int x,
                                 int y,
-                                char identifier,
-                                int crew = 0):
-                                Caravan(x,
-                                        y,
-                                        identifier,
-                                        crew, 0)
-{
-}
+                                char identifier):
+                                Caravan(    x,
+                                            y,
+                                            identifier,
+                                            50,
+                                            50,
+                                            500,
+                                            100,
+                                            Manual){}
 
 SecretCaravan* SecretCaravan::duplicate() const
 {
