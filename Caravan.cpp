@@ -4,12 +4,13 @@
 
 #include "Caravan.h"
 
-Caravan::Caravan(): MapContentItem(-1,-1), crew(0), maxTons(0) {};
+Caravan::Caravan(): MapContentItem(-1,-1), crew(0), maxTons(0), waterCapacity(200) {};
 
 Caravan::Caravan(   int x,
                     int y,
                     char identifier,
                     int crew,
+                    int waterCapacity,
                     int maxTons,
                     MoveType moveType)
                     : MapContentItem(   x,
@@ -19,6 +20,8 @@ Caravan::Caravan(   int x,
                                         crew(crew),
                                         maxTons(maxTons),
                                         cargo (0),
+                                        waterCapacity(waterCapacity),
+                                        currentWater(waterCapacity),
                                         moveType(moveType){}
 
 // Add goods to the caravan
@@ -81,4 +84,9 @@ void Caravan::displayInfo()
 Caravan* Caravan::duplicate() const
 {
     return new Caravan(*this);
+}
+
+bool Caravan::consumeWater()
+{
+    return true;
 }

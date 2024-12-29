@@ -8,7 +8,7 @@ MerchantCaravan::MerchantCaravan(   int x,
                                     int y,
                                     char identifier,
                                     int crew)
-                                    : Caravan(x, y, identifier, crew) {}
+                                    : Caravan(x, y, identifier, crew, 200, 40) {}
 
 // FIXME FIX THIS
 // Override displayInfo to show details about the merchant caravan
@@ -22,4 +22,15 @@ void MerchantCaravan::displayInfo() {
 MerchantCaravan* MerchantCaravan::duplicate() const
 {
     return new MerchantCaravan(*this);
+}
+
+bool MerchantCaravan::consumeWater()
+{
+    if (currentWater <= 0)
+        return false;
+    if (crew > 10)
+        currentWater -= 2;
+    else
+        currentWater -= 1;
+    return true;
 }

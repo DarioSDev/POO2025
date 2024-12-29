@@ -18,7 +18,4 @@ public:
     BarbarianCaravan* duplicate() const override;
 };
 
-
-
-
 #endif //BARBARIANCARAVAN_H

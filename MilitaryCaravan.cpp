@@ -11,6 +11,7 @@ MilitaryCaravan::MilitaryCaravan( int x,
                                         y,
                                         identifier,
                                         40,
+                                        400,
                                         5,
                                         Auto) {}
 
@@ -23,4 +24,15 @@ void MilitaryCaravan::displayInfo() {
 MilitaryCaravan* MilitaryCaravan::duplicate() const
 {
     return new MilitaryCaravan(*this);
+}
+
+bool MilitaryCaravan::consumeWater()
+{
+    if (currentWater <= 0)
+        return false;
+    if (crew >= 20)
+        currentWater -= 3;
+    else
+        currentWater -= 1;
+    return true;
 }

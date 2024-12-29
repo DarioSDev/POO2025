@@ -17,6 +17,8 @@ public:
     void displayInfo() override;
 
     MilitaryCaravan* duplicate() const override;
+
+    bool consumeWater() override;
 };
 
 #endif //MILITARYCARAVAN_H

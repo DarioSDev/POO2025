@@ -19,6 +19,8 @@ public:
     void displayInfo() override;
 
     MerchantCaravan* duplicate() const override;
+
+    bool consumeWater() override;
 };
 
 

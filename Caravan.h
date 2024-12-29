@@ -18,12 +18,14 @@ protected:
     int crew;    // Number of crew members
     const int maxTons;
     int cargo;
+    const int waterCapacity;
+    int currentWater;
     MoveType moveType;
 
 public:
     // Constructor
     Caravan();
-    Caravan(int x, int y, char identifier, int crew, int maxTons = 40, MoveType moveType = Manual);
+    Caravan(int x, int y, char identifier, int crew, int waterCapacity, int maxTons = 40, MoveType moveType = Manual);
 
     virtual bool move(int dx, int dy);
 
@@ -44,6 +46,8 @@ public:
     void removeCrew(int count);
 
     virtual Caravan * duplicate() const;
+
+    virtual bool consumeWater();
 };
 
 #endif //CARAVAN_H

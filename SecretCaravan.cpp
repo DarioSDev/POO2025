@@ -11,7 +11,7 @@ SecretCaravan::SecretCaravan(   int x,
                                 Caravan(x,
                                         y,
                                         identifier,
-                                        crew)
+                                        crew, 0)
 {
 }
 
