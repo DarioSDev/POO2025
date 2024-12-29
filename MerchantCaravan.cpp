@@ -3,6 +3,7 @@
 //
 
 #include "MerchantCaravan.h"
+#include <iostream>
 
 MerchantCaravan::MerchantCaravan(   int x,
                                     int y,

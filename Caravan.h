@@ -6,8 +6,6 @@
 #define CARAVAN_H
 
 #include <string>
-#include <unordered_map>
-#include <iostream>
 #include "MapContentItem.h"
 #include "MoveType.h"
 
@@ -32,14 +30,14 @@ public:
     char getName();
     void addTons(int quantity);
     void removeTons(int quantity);
-    int getTons() const;
-    int getMaxTons() const;
+    [[nodiscard]] int getTons() const;
+    [[nodiscard]] int getMaxTons() const;
     virtual void displayInfo();
     void addCrew(int count);
     void removeCrew(int count);
-    int getCrew() const;
-    int getMaxCrew() const;
-    virtual Caravan * duplicate() const;
+    [[nodiscard]] int getCrew() const;
+    [[nodiscard]] int getMaxCrew() const;
+    [[nodiscard]] virtual Caravan * duplicate() const;
     virtual bool consumeWater();
     bool setMode(MoveType mode);
 };

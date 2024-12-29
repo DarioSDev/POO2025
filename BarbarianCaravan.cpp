@@ -3,6 +3,7 @@
 //
 
 #include "BarbarianCaravan.h"
+#include <iostream>
 
 BarbarianCaravan::BarbarianCaravan( int x,
                                     int y,

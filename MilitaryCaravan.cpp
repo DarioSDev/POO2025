@@ -3,6 +3,7 @@
 //
 
 #include "MilitaryCaravan.h"
+#include <iostream>
 
 MilitaryCaravan::MilitaryCaravan(   int x,
                                     int y,

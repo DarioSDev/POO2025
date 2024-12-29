@@ -3,6 +3,7 @@
 //
 
 #include "Caravan.h"
+#include <iostream>
 
 Caravan::Caravan(): MapContentItem(-1,-1), crew(0), maxTons(0), waterCapacity(200), moveType(Manual) {};
 
