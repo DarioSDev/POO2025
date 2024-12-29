@@ -20,7 +20,6 @@ class GameManager {
     int combatsWon;
     int newItemsCouldown;
     int itemDuration;
-    //GameConfigurator gameConfig;
     enum GameStatus
     {
         Running, Over
@@ -48,6 +47,7 @@ public:
     bool addMemoryBuffer(Buffer buffer);
     bool removeMemoryBuffer(string name);
     bool displayBuffer(string name);
+    pair<int, int> moveToClosestCaravan(Caravan* caravan, const vector<MapContentItem*>& map);
 };
 
 

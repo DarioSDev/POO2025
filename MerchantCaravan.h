@@ -8,14 +8,11 @@
 #include <map>
 
 class MerchantCaravan final : public Caravan {
-    // FIXME create custom type
     int turnsWithoutCrew = 0;
 
 public:
     MerchantCaravan(int x, int y, char identifier, int crew);
 
-
-    // TODO OVERRIDE
     void displayInfo() override;
 
     MerchantCaravan* duplicate() const override;

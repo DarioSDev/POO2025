@@ -126,3 +126,7 @@ void Caravan::resetTurn() {
     cout << "Caravan reset for new turn.\n";
 }
 
+MoveType Caravan::getMode()
+{
+    return moveType;
+}

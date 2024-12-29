@@ -114,8 +114,16 @@ void Simulator::execute() {
                 }
                 for (auto *item: model.map) {
                     if (auto *caravan = dynamic_cast<Caravan *>(item)) {
-                        caravan->consumeWater();
-                        caravan->resetTurn();
+                        for (int i = 0; i < num; i++)
+                        {
+                            if (caravan->getMode() == Auto)
+                            {
+                                auto [dx, dy] = manager.moveToClosestCaravan(caravan, model.map);
+                                caravan->move(dx, dy);
+                            }
+                            caravan->consumeWater();
+                            caravan->resetTurn();
+                        }
                     }
                 }
                 turn += num;
@@ -123,6 +131,11 @@ void Simulator::execute() {
             } else if (ss.eof()) {
                 for (auto *item: model.map) {
                     if (auto *caravan = dynamic_cast<Caravan *>(item)) {
+                        if (caravan->getMode() == Auto)
+                        {
+                            auto [dx, dy] = manager.moveToClosestCaravan(caravan, model.map);
+                            caravan->move(dx, dy);
+                        }
                         caravan->consumeWater();
                         caravan->resetTurn();
                     }

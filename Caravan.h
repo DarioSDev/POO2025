@@ -44,6 +44,7 @@ public:
     virtual void consumeWater();
     virtual void resetTurn();
     bool setMode(MoveType mode);
+    MoveType getMode();
 };
 
 #endif //CARAVAN_H

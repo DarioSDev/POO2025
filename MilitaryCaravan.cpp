@@ -17,7 +17,6 @@ MilitaryCaravan::MilitaryCaravan(   int x,
                                         5,
                                         Manual) {}
 
-// TODO override displayInfo to show barbarian caravan details
 void MilitaryCaravan::displayInfo() {
     cout << "Barbarian Caravan\n"
          << "Name: " << getName() << "\nCrew: " << crew << "."<< endl;
