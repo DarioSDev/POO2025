@@ -34,8 +34,6 @@ void MilitaryCaravan::consumeWater()
     else
         currentWater -= 1;
     if (currentWater < 0) currentWater = 0;
-    cout << "MilitaryCaravan consumed water. Remaining: " << currentWater << " units.\n";
-
 }
 
 bool MilitaryCaravan::move(int dx, int dy)

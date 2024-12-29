@@ -13,7 +13,7 @@
 Simulator::Simulator()
     : lines(0), columns(0), screen(lines, columns), manager(GameManager()), model(GameModel()), configurator(model) {
     initialPhase = true;
-    turn = 0;
+    turn = 1;
     setupManager();
 }
 
@@ -48,6 +48,7 @@ void Simulator::show() {
         screen << map[i].c_str();
     }
     screen.render();
+    cout << "Turn: " << turn << " | Coins: " << model.coins << endl;
 }
 
 void Simulator::execute() {
@@ -91,6 +92,7 @@ void Simulator::execute() {
     }
 
     while (initialPhase == false) {
+        show();
         cout << "Enter command: ";
         getline(cin, input);
         istringstream ss(input);
@@ -99,8 +101,7 @@ void Simulator::execute() {
 
         if (command == "exec") {
             // TODO REMOVE LATER - JUST FOR TESTING
-            show();
-            cout << "To be implemented..." << endl;
+            cout << "To be implemented." << endl;
         } else if (command == "prox") {
             int num = 0;
             if (ss >> num) {
@@ -126,8 +127,8 @@ void Simulator::execute() {
                         }
                     }
                 }
+                cout << "Turn " << turn << " ends!\n\n";
                 turn += num;
-                cout << "Turn " << turn << " ends!\n";
             } else if (ss.eof()) {
                 for (auto *item: model.map) {
                     if (auto *caravan = dynamic_cast<Caravan *>(item)) {
@@ -140,8 +141,8 @@ void Simulator::execute() {
                         caravan->resetTurn();
                     }
                 }
+                cout << "Turn " << turn << " ends!\n\n";
                 turn++;
-                cout << "Turn " << turn << " ends!\n";
             } else {
                 cout << "Invalid command format. Use: prox <positive number>\n";
             }
@@ -383,15 +384,9 @@ void Simulator::execute() {
                         cout << "Can't go in that direction: " << direction << "\n";
                         canMove = false;
                     }
-
                     if (canMove) {
-                        if (manager.moveCaravan(caravan, dx, dy)) {
-                            cout << "Caravan " << caravanId << " moved to " << direction << ".\n";
-                        } else {
-                            cout << "Caravan " << caravanId << " could not move to " << direction << ".\n";
-                        }
+                        manager.moveCaravan(caravan, dx, dy);
                     }
-
                     caravanFound = true;
                     break;
                 }
