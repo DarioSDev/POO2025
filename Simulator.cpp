@@ -146,13 +146,9 @@ void Simulator::execute() {
                             }
                             if (caravan->getCrew() <= 0) {
                                 cout << "Caravan " << caravan->getIdentifier() << " destroyed." << endl;
-                                //delete caravan;
-                                //caravan = nullptr;
                             }
                             if (barbarian->getCrew() <= 0) {
                                 cout << "Barbarian " << barbarian->getIdentifier() << " destroyed." << endl;
-                                //delete barbarian;
-                                //barbarian = nullptr;
                             }
                         }
                     }
@@ -160,6 +156,7 @@ void Simulator::execute() {
             }
         }
 
+        removeDestroyedCaravans();
         cout << "Enter command: ";
         getline(cin, input);
         istringstream ss(input);
@@ -732,3 +729,19 @@ void Simulator::populateDesertItems()
     }
 }
 
+void Simulator::removeDestroyedCaravans()
+{
+    vector<MapContentItem *>::iterator it = model.map.begin();
+    while (it != model.map.end())
+    {
+        if (auto* caravan = dynamic_cast<Caravan *>(*it))
+        {
+            if (caravan->getCrew() <= 0)
+            {
+                it = model.map.erase(it);
+                continue;
+            }
+        }
+        ++it;
+    }
+}

@@ -36,6 +36,7 @@ public:
     void setupManager();
     void checkTurns();
     void populateDesertItems();
+    void removeDestroyedCaravans();
 };
 
 #endif //SIMULADOR_H

@@ -16,7 +16,7 @@ BarbarianCaravan::BarbarianCaravan( int x,
                                                 0,
                                                 0,
                                                 1,
-                                                Manual) {}
+                                                Auto) {}
 
 // TODO override displayInfo to show barbarian caravan details
 void BarbarianCaravan::displayInfo() {
