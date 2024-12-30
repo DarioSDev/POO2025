@@ -608,7 +608,7 @@ void Simulator::execute() {
                 cout << "Invalid command format. Use: loads <bufferName>\n";
             }
         } else if (command == "lists") {
-            cout << "To be implemented..." << endl;
+            manager.listBuffers();
         } else if (command == "dels") {
             string bufferName;
             if (ss >> bufferName) {

@@ -48,6 +48,7 @@ public:
     bool addMemoryBuffer(Buffer buffer);
     bool removeMemoryBuffer(string name);
     bool displayBuffer(string name);
+    void listBuffers();
     pair<int, int> moveToClosestCaravan(Caravan* caravan, const vector<MapContentItem*>& map);
     void moveBarbarianCaravans(Caravan * caravan, vector<MapContentItem*>& map, int lines, int cols);
 };
