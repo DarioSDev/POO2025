@@ -513,7 +513,15 @@ void Simulator::execute() {
                 }
             }
         } else if (command == "barbaro") {
-            cout << "To be implemented....." << endl;
+            int x, y;
+            if (ss >> x && ss >> y)
+            {
+                model.map.push_back(new BarbarianCaravan(x, y, '!'));
+            } else
+            {
+                cout << "Invalid command format. Use: barbaro <integer x><integer y>\n";
+            }
+
         } else if (command == "areia") {
             cout << "To be implemented......" << endl;
         } else if (command == "moedas") {
