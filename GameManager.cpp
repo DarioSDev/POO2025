@@ -8,6 +8,7 @@
 #include "BarbarianCaravan.h"
 #include "Buffer.h"
 #include "MilitaryCaravan.h"
+#include "Mountain.h"
 #include "SecretCaravan.h"
 
 GameManager::GameManager(int coins):
@@ -179,5 +180,84 @@ pair<int, int> GameManager::moveToClosestCaravan(Caravan* caravan, const vector<
     }
     return direction;
 }
+
+void GameManager::moveBarbarianCaravans(Caravan * caravan, vector<MapContentItem*>& map, int lines, int cols)
+{
+    if (auto* barbarianCaravan = dynamic_cast<BarbarianCaravan*>(caravan))
+    {
+        int caravanX = barbarianCaravan->getX();
+        int caravanY = barbarianCaravan->getY();
+
+        Caravan* target = nullptr;
+        int closestDistance = 8;
+
+        for (auto* item : map)
+        {
+            if (auto* userCaravan = dynamic_cast<Caravan*>(item))
+            {
+                if (userCaravan->getIdentifier() == '!')
+                    continue;
+                int userX = userCaravan->getX();
+                int userY = userCaravan->getY();
+
+                int distance = abs(caravanX - userX) + abs(caravanY - userY);
+                if (distance <= closestDistance)
+                {
+                    closestDistance = distance;
+                    target = userCaravan;
+                }
+            }
+        }
+
+        // Movimento: perseguir ou aleatório
+        if (target)
+        {
+            int targetX = target->getX();
+            int targetY = target->getY();
+
+            int dx = 0, dy = 0;
+
+            if (caravanX < targetX) dx = 1;
+            else if (caravanX > targetX) dx = -1;
+
+            if (caravanY < targetY) dy = 1;
+            else if (caravanY > targetY) dy = -1;
+
+            barbarianCaravan->move(dx, dy);
+        }
+        else
+        {
+            int dx = 0, dy = 0;
+            while (true)
+            {
+                dx = 0, dy = 0;
+                if (rand() % 2 == 0)
+                    dx = rand() % 3 - 1;
+                else
+                    dy = rand() % 3 - 1;
+
+                bool validMove = true;
+                for (auto* item : map)
+                {
+                    if (item->getX() == dx && item->getY() == dy)
+                    {
+                        if (dynamic_cast<Mountain*>(item) || dynamic_cast<City*>(item)|| barbarianCaravan->getX() + dx > cols || barbarianCaravan->getY() + dy > lines || dx == 0 || dy == 0)
+                        {
+                            validMove = false;
+                            break;
+                        }
+
+                    }
+                }
+                if (validMove)
+                {
+                    break;
+                }
+            }
+            barbarianCaravan->move(dx, dy);
+        }
+    }
+}
+
 
 

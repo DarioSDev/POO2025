@@ -200,11 +200,13 @@ void Simulator::execute() {
             } else if (ss.eof()) {
                 for (auto *item: model.map) {
                     if (auto *caravan = dynamic_cast<Caravan *>(item)) {
-                        if (caravan->getMode() == Auto)
+                        if (caravan->getMode() == Auto && caravan->getIdentifier() != '!')
                         {
                             auto [dx, dy] = manager.moveToClosestCaravan(caravan, model.map);
                             caravan->move(dx, dy);
                         }
+                        if (caravan->getIdentifier() == '!')
+                            manager.moveBarbarianCaravans(caravan, model.map, model.lines, model.columns);
                         caravan->consumeWater();
                         caravan->resetTurn();
                     }

@@ -6,6 +6,7 @@
 #define GAMEMANAGER_H
 #include <vector>
 
+#include "BarbarianCaravan.h"
 #include "Buffer.h"
 #include "Caravan.h"
 #include "City.h"
@@ -48,6 +49,7 @@ public:
     bool removeMemoryBuffer(string name);
     bool displayBuffer(string name);
     pair<int, int> moveToClosestCaravan(Caravan* caravan, const vector<MapContentItem*>& map);
+    void moveBarbarianCaravans(Caravan * caravan, vector<MapContentItem*>& map, int lines, int cols);
 };
 
 #endif //GAMEMANAGER_H
