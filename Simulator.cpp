@@ -163,10 +163,7 @@ void Simulator::execute() {
         string command;
         ss >> command;
 
-        if (command == "exec") {
-            // TODO REMOVE LATER - JUST FOR TESTING
-            cout << "To be implemented." << endl;
-        } else if (command == "prox") {
+        if (command == "prox") {
             int num = 0;
             if (ss >> num) {
                 if (ss.peek() != EOF) {
