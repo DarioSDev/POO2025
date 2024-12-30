@@ -150,6 +150,23 @@ bool GameManager::displayBuffer(string name)
     return false;
 }
 
+void GameManager::listBuffers()
+{
+    if (memoryBuffers.empty())
+    {
+        cout << "No Buffers in memory yet." << endl;
+        return;
+    }
+    auto it = memoryBuffers.begin();
+    cout << "Listing Buffers in memory: " << endl;
+    while (it != memoryBuffers.end())
+    {
+        cout << it->first << endl;
+        it++;
+    }
+    cout << "\n" << endl;
+}
+
 pair<int, int> GameManager::moveToClosestCaravan(Caravan* caravan, const vector<MapContentItem*>& map) {
     const int caravanX = caravan->getX();
     const int caravanY = caravan->getY();
@@ -258,6 +275,3 @@ void GameManager::moveBarbarianCaravans(Caravan * caravan, vector<MapContentItem
         }
     }
 }
-
-
-
